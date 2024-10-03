@@ -1,8 +1,11 @@
 import { getWorks, getCategories} from "./api.js";
 
+const btnFilter = document.querySelectorAll(".btn-filter");
+
+
 const renderWorks = (works) => {
   // TODO transformer en forEach
-  for (let i = 0; i < works.length; i++) {
+  for (let i = 0; i < works.length - 1; i++) {
     const dataWorks = works[i];
 
     const sectionGallery = document.querySelector(".gallery");
@@ -20,43 +23,51 @@ const renderWorks = (works) => {
 };
  // TODO render les catégories
 const renderCategories = (categories) => {
-    categories.forEach(category => { 
-      let i = 0; i < categories.length; i++; 
-      const dataCategories = categories[i];        
-    });
-    console.log({categories})
-}
+   for (let i = 0; i < categories.length - 1; i++) {
+    const dataCategory = categories[i]; 
+}}
 
 const init = async () => {
   const works = await getWorks();
   const categories = await getCategories();
-  
-
-  // TODO iniitialiser une variable defaultWorks (trouver un autre nom)
-
-
+ 
  // afficher les travaux et catégories
   renderWorks(works);
   renderCategories(categories);
 
+  // TODO iniitialiser une variable defaultWorks (trouver un autre nom)
+  
   // TODO créer une fonction events , dans le quel tu auras tout les addEventListener -> 
-  const btnFilter = document.querySelectorAll(".btn-filter");
-  btnFilter.addEventListener("click", {
-    const filterObjets = works.filter(function (work) {
-      return work.category.id = "1"
-    })
-    const filterAppart = works.filter(function (work) {
-      return work.category.id = "2"
-    })
-    console.log({filterObjets})
-    console.log({filterAppart})
+  let btnActive = document.querySelector(".btn-active");
+  let indexCurrent = 0;
+
+  btnFilter.forEach((btn, index) => {
+    btn.addEventListener("click", function () {
+      btnActive = document.querySelector(".btn-active");
+      indexCurrent = [index];
+      filterWorks();
+      updateBtn();
+    });
   });
-    // TODO Filter par catégorie 
-  //  addEventListener 
-  // filtrer ton tableau de works par rapport au data-id work.category.id ==== dataId
-  // renderWorks(newWorks)
+
+function filterWorks() {
+  const filterType = works.filter( work => work.category.id == [indexCurrent]);
+  document.querySelector(".gallery").innerHTML =" ";
+  renderWorks(filterType);
+  
 
 };
+function updateBtn() {
+  btnActive.classList.remove("btn-active");
+  btnFilter[indexCurrent].classList.add("btn-active");
+}
+   
+// TODO Filter par catégorie 
+//  addEventListener 
+ // filtrer ton tableau de works par rapport au data-id work.category.id ==== dataId
+// renderWorks(newWorks)
+
+}
 
 init();
 
