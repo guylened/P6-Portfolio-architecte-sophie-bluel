@@ -1,30 +1,27 @@
 import { getWorks, getCategories} from "./api.js";
 
-const btnFilter = document.querySelectorAll(".btn-filter");
-
-
 const renderWorks = (works) => {
   // TODO transformer en forEach
   for (let i = 0; i < works.length - 1; i++) {
-    const dataWorks = works[i];
+    const indexWorks = works[i];
 
     const sectionGallery = document.querySelector(".gallery");
 
     const box = document.createElement("figure");
     const image = document.createElement("img");
-    image.src = dataWorks.imageUrl;
+    image.src = indexWorks.imageUrl;
     const legende = document.createElement("figcaption");
-    legende.innerHTML = dataWorks.title;
+    legende.innerHTML = indexWorks.title;
 
     sectionGallery.appendChild(box);
     box.appendChild(image);
     box.appendChild(legende);
   }
 };
- // TODO render les catégories
+ // render catégories
 const renderCategories = (categories) => {
    for (let i = 0; i < categories.length - 1; i++) {
-    const dataCategory = categories[i]; 
+    const indexCategory = categories[i]; 
 }}
 
 const init = async () => {
@@ -33,13 +30,14 @@ const init = async () => {
  
  // afficher les travaux et catégories
   renderWorks(works);
-  renderCategories(categories);
+  renderCategories(categories);  
 
-  // TODO iniitialiser une variable defaultWorks (trouver un autre nom)
-  
-  // TODO créer une fonction events , dans le quel tu auras tout les addEventListener -> 
+    
+  const btnFilter = document.querySelectorAll(".btn-filter");
   let btnActive = document.querySelector(".btn-active");
   let indexCurrent = 0;
+ 
+  // addEventListener
 
   btnFilter.forEach((btn, index) => {
     btn.addEventListener("click", function () {
@@ -50,23 +48,24 @@ const init = async () => {
     });
   });
 
+  // Filtres
+  
 function filterWorks() {
-  const filterType = works.filter( work => work.category.id == [indexCurrent]);
+  if (indexCurrent == 0) {
+  document.querySelector(".gallery").innerHTML =" ";
+  return renderWorks(works);  
+  }
+  else {
+  const filterType = works.filter(work => work.category.id == [indexCurrent]);
   document.querySelector(".gallery").innerHTML =" ";
   renderWorks(filterType);
-  
-
+  }  
 };
+
 function updateBtn() {
   btnActive.classList.remove("btn-active");
   btnFilter[indexCurrent].classList.add("btn-active");
 }
-   
-// TODO Filter par catégorie 
-//  addEventListener 
- // filtrer ton tableau de works par rapport au data-id work.category.id ==== dataId
-// renderWorks(newWorks)
-
 }
 
 init();
