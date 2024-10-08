@@ -1,11 +1,10 @@
 import { getWorks, getCategories} from "./api.js";
 
 
-
+//modif DOM gallery
 
 function changeHTML(item, i, array) {
-  // TODO transformer en forEach
-   
+    
     let indexWorks = array[i];
     
     const sectionGallery = document.querySelector(".gallery");
@@ -22,7 +21,7 @@ function changeHTML(item, i, array) {
   
 };
 
-
+// fonction initialisation
 
 const init = async () => {
   const works = await getWorks();
@@ -31,9 +30,7 @@ const init = async () => {
   //Afficher les travaux
   const DefaultWorks = works.forEach(changeHTML)
  
- 
-
-    
+     
   const btnFilter = document.querySelectorAll(".btn-filter");
   let btnActive = document.querySelector(".btn-active");
   let indexCurrent = 0;
@@ -49,7 +46,7 @@ const init = async () => {
     });
   });
 
-  // Filtres
+  // Filtres et update classe
   
 function filterWorks() {
   if (indexCurrent == 0) {
@@ -69,5 +66,6 @@ function updateBtn() {
 }
 }
 
+// appel initialisation
 init();
 
