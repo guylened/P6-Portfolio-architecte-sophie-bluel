@@ -1,10 +1,13 @@
 import { getWorks, getCategories} from "./api.js";
 
-const renderWorks = (works) => {
-  // TODO transformer en forEach
-  for (let i = 0; i < works.length - 1; i++) {
-    const indexWorks = works[i];
 
+
+
+function changeHTML(item, i, array) {
+  // TODO transformer en forEach
+   
+    let indexWorks = array[i];
+    
     const sectionGallery = document.querySelector(".gallery");
 
     const box = document.createElement("figure");
@@ -16,21 +19,19 @@ const renderWorks = (works) => {
     sectionGallery.appendChild(box);
     box.appendChild(image);
     box.appendChild(legende);
-  }
+  
 };
- // render catégories
-const renderCategories = (categories) => {
-   for (let i = 0; i < categories.length - 1; i++) {
-    const indexCategory = categories[i]; 
-}}
+
+
 
 const init = async () => {
   const works = await getWorks();
   const categories = await getCategories();
+
+  //Afficher les travaux
+  const DefaultWorks = works.forEach(changeHTML)
  
- // afficher les travaux et catégories
-  renderWorks(works);
-  renderCategories(categories);  
+ 
 
     
   const btnFilter = document.querySelectorAll(".btn-filter");
@@ -53,12 +54,12 @@ const init = async () => {
 function filterWorks() {
   if (indexCurrent == 0) {
   document.querySelector(".gallery").innerHTML =" ";
-  return renderWorks(works);  
+  works.forEach(changeHTML);  
   }
   else {
   const filterType = works.filter(work => work.category.id == [indexCurrent]);
   document.querySelector(".gallery").innerHTML =" ";
-  renderWorks(filterType);
+  filterType.forEach(changeHTML);
   }  
 };
 
