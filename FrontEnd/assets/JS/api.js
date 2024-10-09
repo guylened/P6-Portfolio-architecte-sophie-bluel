@@ -28,9 +28,12 @@ export const getCategories = async () => {
 
   
 
-export const getUserInfo= async () => {
+export const login = async (email, password) => {
   try {
-    const data = await fetch("http://localhost:5678/api/users/login").then(
+    const data = await fetch("http://localhost:5678/api/users/login", {
+      method: 'POST',
+      body: JSON.stringify({ email, password})
+    }).then(
       (response) => response.json()
     );
 
