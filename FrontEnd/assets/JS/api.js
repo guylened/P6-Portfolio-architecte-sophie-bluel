@@ -11,7 +11,7 @@ export const getWorks = async () => {
   }
 };
 
-// Rrécupération des catégories
+// Récupération des catégories
 
 export const getCategories = async () => {
     try {
@@ -25,3 +25,17 @@ export const getCategories = async () => {
     }
   };
   
+
+  
+
+export const getUserInfo= async () => {
+  try {
+    const data = await fetch("http://localhost:5678/api/users/login").then(
+      (response) => response.json()
+    );
+
+    return data;
+  } catch (e) {
+    console.log("error:", { e });
+  }
+};

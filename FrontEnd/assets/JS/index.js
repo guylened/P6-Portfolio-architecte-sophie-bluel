@@ -24,11 +24,10 @@ function changeHTML(item, i, array) {
 // fonction initialisation
 
 const init = async () => {
-  const works = await getWorks();
-  const categories = await getCategories();
+  const works = await getWorks(); 
 
   //Afficher les travaux
-  const DefaultWorks = works.forEach(changeHTML)
+  const DefaultWorks = works.forEach(changeHTML);
  
      
   const btnFilter = document.querySelectorAll(".btn-filter");
@@ -69,3 +68,4 @@ function updateBtn() {
 // appel initialisation
 init();
 
+const navLink = document.querySelectorAll("nav li"); // ajouter class pour modif weight sélection lien
