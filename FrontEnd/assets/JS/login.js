@@ -1,18 +1,42 @@
-import { login } from "./api.js";
+import { login, getUserInfo } from "./api.js";
 
 
 
 
-const submit = document.getElementById("submit")
-submit.addEventListener("submit", function() {
+const loginForm = document.getElementById("loginForm")
+loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;  
+    try {
+        const data = fetch("http://localhost:5678/api/users/login", {
+          method: 'POST',      
+          body: JSON.stringify({email, password})
+        }).then(
+          (response) => response.json()
+        );
     
-    if (login.statut == 200) {
+        return data;
+      } catch (e) {
+        console.log("error:", { e });
+      }
+    }  )
 
-    }
+   /* if (login.status == 200) {
+        getUserInfo();
+        localStorage.setItem('token');
+        return " Vous êtes connectée"
 
-} )
+
+    } else {
+       return  "Vous n'êtes pas habilité  ou le serveur ne répond pas"
+    }*/
+
+
 /*
  // fonctions vérification contenu champs du formulaire
+
+
 
  // addeventlister sur bouton submit 
  
@@ -31,3 +55,4 @@ submit.addEventListener("submit", function() {
 
 
 // supprimer required dans html login sinon bug de verif regex
+// faire page de logout
