@@ -37,11 +37,14 @@ export const login = async (email, password) => {
     });
     if(!response.ok) { throw new Error("HTTP error " + response.status);          
     }
-    
-    const data = await response.json();
-    return data;
+    const data = await response.json();  
+    localStorage.setItem("token", data.token);
+    window.location = "/FrontEnd/index.html";
   } catch (error) {
     console.error("error during login: ", error);
   }
 };
+
+
+// si problème de port/origin redémarrer backend avec powershell
 

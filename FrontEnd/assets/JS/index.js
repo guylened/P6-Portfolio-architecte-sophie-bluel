@@ -1,13 +1,35 @@
 import { getWorks } from "./api.js";
 
-// vérification connexion et modif page
+// vérification connexion et modif page pour User connecté
 const userConnected = localStorage.getItem('token');
+console.log(userConnected)
 
-function updatePageWhenUserAuthenticated() {
-  // Suppression du bouton login
-  // Ajout du bouton logout
-  // Ajout des modifications pour la gallery
+function PageForUserAuth() {
+  const btnLogin = document.getElementById("linkLogin");
+  const btnManageWorks = document.getElementById("manageWorks");
+  let divFilter = document.getElementById("filter");  
+  btnLogin.innerHTML = "logout";
+  btnLogin.classList.add("logout");  
+  btnManageWorks.innerHTML = '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
+  divFilter.remove();  
 }
+
+// logout et rechargement page index
+
+const btnLogout = document.querySelectorAll(".logout")
+btnLogout.forEach(button => {  
+  try {
+  console.log(button);
+  button.addEventListener("click" , function() {  
+  localStorage.removeItem('token');
+  button.classList.remove("logout");
+  window.location = "/FrontEnd/index.html";
+  })
+  }
+  catch (error) {
+    console.error("error during logout: ", error);
+  }
+})
 
 //modif DOM gallery
 function renderWorks(works) {
@@ -32,10 +54,12 @@ function renderWorks(works) {
 
 const init = async () => {
   if (userConnected) {
-    updatePageWhenUserAuthenticated();
-  }
+    PageForUserAuth();
+  };
 
   const works = await getWorks();
+
+  
 
   //Afficher les travaux
   renderWorks(works);
@@ -77,6 +101,7 @@ const init = async () => {
     btnFilter[indexCurrent].classList.add("btn-active");
   }
 };
+
 
 // appel initialisation
 init();
