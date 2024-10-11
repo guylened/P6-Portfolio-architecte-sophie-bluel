@@ -1,4 +1,4 @@
-import { login, getUserInfo } from "./api.js";
+import { login } from "./api.js";
 
 
 
@@ -6,21 +6,10 @@ import { login, getUserInfo } from "./api.js";
 const loginForm = document.getElementById("loginForm")
 loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;  
-    try {
-        const data = fetch("http://localhost:5678/api/users/login", {
-          method: 'POST',      
-          body: JSON.stringify({email, password})
-        }).then(
-          (response) => response.json()
-        );
-    
-        return data;
-      } catch (e) {
-        console.log("error:", { e });
-      }
-    }  )
+    const email = document.getElementById("email").value;   
+    const password = document.getElementById("password").value;    
+    login(email, password);
+})
 
    /* if (login.status == 200) {
         getUserInfo();

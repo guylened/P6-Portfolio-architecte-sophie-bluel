@@ -30,27 +30,18 @@ export const getCategories = async () => {
 
 export const login = async (email, password) => {
   try {
-    const data = await fetch("http://localhost:5678/api/users/login", {
-      method: 'POST',      
+    const response = await fetch("http://localhost:5678/api/users/login", {
+      method: 'POST', 
+      headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify({email, password})
-    }).then(
-      (response) => response.json()
-    );
-
+    });
+    if(!response.ok) { throw new Error("HTTP error " + response.status);          
+    }
+    
+    const data = await response.json();
     return data;
-  } catch (e) {
-    console.log("error:", { e });
+  } catch (error) {
+    console.error("error during login: ", error);
   }
 };
 
-export const getUserInfo = async () => {
-  try {
-    const data = await fetch("http://localhost:5678/api/users/login").then(
-      (response) => response.json()
-    );
-
-    return data;
-  } catch (e) {
-    console.log("error:", { e });
-  }
-};
