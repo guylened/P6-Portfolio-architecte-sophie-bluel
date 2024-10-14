@@ -9,27 +9,26 @@ function PageForUserAuth() {
   const btnManageWorks = document.getElementById("manageWorks");
   let divFilter = document.getElementById("filter");  
   btnLogin.innerHTML = "logout";
-  btnLogin.classList.add("logout");  
   btnManageWorks.innerHTML = '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
   divFilter.remove();  
+  document.getElementById("linkLogin").id="linkLogout";  
 }
 
 // logout et rechargement page index
 
-const btnLogout = document.querySelectorAll(".logout")
-btnLogout.forEach(button => {  
-  try {
-  console.log(button);
-  button.addEventListener("click" , function() {  
-  localStorage.removeItem('token');
-  button.classList.remove("logout");
-  window.location = "/FrontEnd/index.html";
-  })
-  }
-  catch (error) {
-    console.error("error during logout: ", error);
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  const btnLogout = document.getElementById("linkLogout"); 
+   if (btnLogout !== null) {
+    btnLogout.addEventListener("click" , function() {  
+      localStorage.removeItem('token');     
+      window.location = "/FrontEnd/index.html";
+      }) 
+  } else {
+    console.log("l'utilisateur n'est pas connecté")
+  } 
 })
+
+  
 
 //modif DOM gallery
 function renderWorks(works) {
