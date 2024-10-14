@@ -148,6 +148,53 @@ li:hover {
 	margin: 10px;
 }
 
+#portfolio .open-modal {
+	cursor: pointer;
+}
+
+#portfolio .modal-container {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vw;
+	width: 100vw;	
+}
+
+#portfolio .modal-container.active {
+	display: block;
+}
+
+#portfolio .overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#portfolio .modal {
+	width: 95%;
+	min-width: 300px;
+	max-width: 500px;
+	background: white;
+	padding: 30px;
+	border-radius: 5px;
+	position: absolute;
+	top:  25%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+}
+
+#portfolio .close-modal {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+#portfolio .modal-trigger {}
+
+
 #portfolio .filter {
 display: flex;
 flex-direction: row;
