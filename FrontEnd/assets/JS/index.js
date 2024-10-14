@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", function() {
   } 
 })
 
-  
+// appel modal
+/* après le chargement de la page addeventlistener sur btn modifier lance la fonction modale
+ import de la fonction modale à faire sur ce fichier
+id="manageWorks" class = open-modal modal-trigger
+*/
 
 //modif DOM gallery
 function renderWorks(works) {
