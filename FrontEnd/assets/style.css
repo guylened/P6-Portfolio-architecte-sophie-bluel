@@ -175,25 +175,181 @@ li:hover {
 #portfolio .modal {
 	width: 95%;
 	min-width: 300px;
-	max-width: 500px;
+	max-width: 630px;
 	background: white;
-	padding: 30px;
-	border-radius: 5px;
+	border-radius: 10px;
 	position: absolute;
 	top:  25%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap:40px;
+	padding: 5% 0%;	
+	
 }
 
 #portfolio .close-modal {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 25px;
+	right: 30px;
+	cursor: pointer;	
 }
 
-#portfolio .modal-trigger {}
+#portfolio .navLeftMod {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	cursor: pointer;
+}
 
+#portfolio h3 {
+	color: #000;
+	text-align: center;
+	font-family: "Work Sans";
+	font-size: 26px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+#portfolio .gridImgModal {
+	width: 70%;
+	display: grid;
+	row-gap: 20px;
+	column-gap: 6px;	
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 5%;
+}
+#portfolio .imgBoxMod {
+	position: relative;
+	height: 104px;
+	width: 78px;
+}
+
+#portfolio .imgBoxMod img {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#portfolio .imgBoxMod .trash {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding: 10px 5px 10px 4px;
+	color:white;
+	background: #000;
+	cursor: pointer;
+}
+
+#portfolio .btnModal {
+	width: 40%;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;	
+	padding: 0.6em 1em;
+	border: solid 1px #1D6154;	
+	border-radius: 60px;
+	text-align: center;	
+	cursor: pointer;
+}
+
+#portfolio .formModal {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;	
+	align-items: left;
+	gap: 10px;
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 5%;
+}
+
+#portfolio .boxUpload {
+	width: 100%;	
+	background: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap:10px;
+}
+#portfolio .boxUpload .imgUpload {
+	margin-top: 20px;
+	color: #CBD6DC;
+	background: #E8F1F6;
+
+}
+#portfolio .boxUpload .labelUpload {
+	background: #CBD6DC;
+	color: #306685;
+	text-align: center;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	padding: 0.5em 2em;
+	border: solid 1px #CBD6DC;	
+	border-radius: 60px;
+	text-align: center;	
+	cursor: pointer;
+}
+
+#portfolio .boxUpload p {
+	color: #444;
+	text-align: center;
+	font-family: "Work Sans";
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-bottom: 20px;
+}
+#portfolio .boxUpload input[type=file] {
+ 	display: none;
+}
+
+#portfolio .formModal label {
+	color: #3D3D3D;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;			
+}
+
+#portfolio .formModal input, select {
+	width: 100%;
+	height: 50px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	color: #444;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+
+
+#portfolio .btnModal2 {
+	width: 40%;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #A7A7A7;	
+	padding: 0.6em 1em;
+	border: solid 1px #A7A7A7;	
+	border-radius: 60px;
+	text-align: center;	
+
+}
 
 #portfolio .filter {
 display: flex;
