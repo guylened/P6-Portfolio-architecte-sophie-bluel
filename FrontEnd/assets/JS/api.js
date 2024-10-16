@@ -45,6 +45,20 @@ export const login = async (email, password) => {
   }
 };
 
+export const deleteWork = async (id) => {
+  try {
+  const response = await fetch("http://localhost:5678/api/works/{id}", {
+    method: 'DELETE',
+    body: JSON.stringify({id})
+  });
+  if(!response.ok) { throw new Error("HTTP error " + response.status); }
+} catch (error) {
+  console.error("error suprr: ", error);
+}
+}
+
+
+
 
 // si problème de port/origin redémarrer backend avec powershell
 
