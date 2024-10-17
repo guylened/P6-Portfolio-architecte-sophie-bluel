@@ -11,6 +11,11 @@ export const getWorks = async () => {
   }
 };
 
+export async function fetchWorks(){
+  const works = await getWorks();
+  return works;
+};
+
 // Récupération des catégories
 
 export const getCategories = async () => {
@@ -24,8 +29,11 @@ export const getCategories = async () => {
       console.log("error:", { e });
     }
   };
-  
-
+    
+  export async function fetchCategories() {
+    const categories = await getCategories();
+    return categories;
+  };
   
 
 export const login = async (email, password) => {

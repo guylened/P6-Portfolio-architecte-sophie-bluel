@@ -1,4 +1,4 @@
-import { getWorks } from "./api.js";
+import { fetchCategories, fetchWorks } from "./api.js";
 
 // vérification connexion et modif page pour User connecté
 const userConnected = localStorage.getItem('token');
@@ -50,7 +50,18 @@ function renderWorks(works) {
     box.appendChild(legende);
   });
 }
-
+function renderCategories(categories) {
+  const sectionFilter = document.querySelector(".filter");
+if(sectionFilter) {
+  categories.forEach((categorie) => {
+    
+    const button = document.createElement("button");
+    button.classList.add("btn-filter");
+    button.innerHTML = categorie.name;    
+    sectionFilter.appendChild(button);    
+  });
+}
+}
 
 
 // fonction initialisation
@@ -60,12 +71,14 @@ const init = async () => {
     PageForUserAuth();
   };
 
-  const works = await getWorks();
 
+  const works = await fetchWorks();
+  const categories = await fetchCategories();
   
 
   //Afficher les travaux
   renderWorks(works);
+  renderCategories(categories)
 
   //variables pour filtre
 

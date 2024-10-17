@@ -1,4 +1,4 @@
-import { getWorks, deleteWork } from "./api.js";
+import { fetchWorks, fetchCategories, deleteWork } from "./api.js";
 
 
 // ajout/suppression de la class active pour gérer l'affichage de la modale
@@ -31,7 +31,8 @@ let gridImgModal = document.querySelector(".gridImgModal");
 
 async function initMod() {
         try {
-                let works = await getWorks();                
+                const works = await fetchWorks();
+                const categories = await fetchCategories();               
                 renderWorksModal(works);                        
         } catch (error) {console.error("Erreur lors de la récupération des travaux")}
 };
