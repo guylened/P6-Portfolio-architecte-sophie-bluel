@@ -1,4 +1,5 @@
 import { fetchWorks, fetchCategories, deleteWork } from "./api.js";
+import { htmlElementMod1, htmlElementMod2 } from "./modalContent.js";
 
 
 // ajout/suppression de la class active pour gérer l'affichage de la modale
@@ -6,93 +7,79 @@ import { fetchWorks, fetchCategories, deleteWork } from "./api.js";
 const modalContainer = document.querySelector(".modal-container");
 let modalTriggers = document.querySelectorAll(".modal-trigger");
 
-modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
-
 function toggleModal(){modalContainer.classList.toggle("active")}
 
+modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
-// function pour création des éléments et affichage des images
-function renderWorksModal(works)  {
-let gridImgModal = document.querySelector(".gridImgModal");               
-      if(gridImgModal) {
-        works.forEach((work) => {
-        const imgBoxMod = document.createElement("div");
-        imgBoxMod.classList.add("imgBoxMod");     
-        const image = document.createElement("img");
-        image.src = work.imageUrl;
-        const trashCan = document.createElement("i");
-        trashCan.classList.add("fa-xs", "fa-solid", "fa-trash-can", "trash");      
-        gridImgModal.appendChild(imgBoxMod)
-        imgBoxMod.appendChild(image);
-        imgBoxMod.appendChild(trashCan);
-        })}
-        else {console.error("L'élément gridImgModal n'a pas été trouvé")};
-}
 
-async function initMod() {
-        try {
-                const works = await fetchWorks();
-                const categories = await fetchCategories();               
-                renderWorksModal(works);                        
-        } catch (error) {console.error("Erreur lors de la récupération des travaux")}
-};
 
 // addeventListener sur bouton ajouter pour afficher la modal 2
-async function btnToModal2() {
-        const btnAjout = document.getElementById("btnModal1")        
+function btnToModal2() {
+        const btnAjout = document.getElementById("btnModal1")  
+             
         if (btnAjout) {        
                 btnAjout.addEventListener("click", function() {
-                        fetch("./modal/modal2.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                        document.getElementById("modal").innerHTML = data;
+                        document.getElementById("modal").innerHTML = " ";                        
+                        document.getElementById("modal").innerHTML = htmlElementMod2;
                         let modalTriggers = document.querySelectorAll(".modal-trigger");
                         modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal));
                         btnToModal1();
                 }) 
-        })
-        .catch((error) => console.error("erreur lors du chargement des fichiers", error));
-        }
-        }
+        }         
+};
+        
 
 // addeventListener sur bouton flèche gauche pour afficher la modale 1
-async function btnToModal1() {
-        const btnArrow = document.getElementById("btnArrow")  
-        console.log(btnArrow)      
+function btnToModal1() {
+        const btnArrow = document.getElementById("btnArrow")                     
         if (btnArrow) {        
-                btnArrow.addEventListener("click", loadModal1()) }
+                btnArrow.addEventListener("click", function() {
+                        loadModal1();
+                });
                 
         }
+}
                 
 
-// affichage du contenu de la modale 1
-function loadModal1() {
-document.addEventListener("DOMContentLoaded", function() {
-        fetch("./modal/modal1.html")
-        .then((response) => response.text())
-        .then((data) => {
-        document.getElementById("modal").innerHTML = data;
+// affichage initial du contenu de la modale 1
+ function loadModal1() {       
+        document.getElementById("modal").innerHTML = htmlElementMod1;
         let modalTriggers = document.querySelectorAll(".modal-trigger");
-        modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal));  
-        initMod();    
+        modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal));            
         btnToModal2();
-        }) 
-        .catch((error) => console.error("erreur lors du chargement des fichiers", error));
-})
+        SupprWork();     
+        
 };
+
 loadModal1();
 
 
 // addeventListener sur poubelle pour supprimer image par id
-/*async function deleteWork(works) {}
+async function deleteParentDiv(workId) {    
+        try{  
+                const parentDiv = workId.parentElement;
+                parentDiv.remove();
+        } catch (error) {
+                console.error("erreur lors de la supression: ", error);
+              }
+}
 
-document.addEventListener("DOMContentLoaded", function() {
-const btnsTrashCan = document.querySelectorAll(".trash")
-btnsTrashCan.forEach(btnTrash => btnTrash.addEventListener("click", deleteWork));
-})*/
+async function SupprWork() {
+        const btnsTrashCan = document.querySelectorAll(".trash")                   
+        if (btnsTrashCan) {
+                const works = await fetchWorks();
 
-
-
+                btnsTrashCan.forEach((btnTrash, index) => {
+                        const workIndex  = works[index];
+                        const workId = workIndex.id;                        
+                        btnTrash.addEventListener("click", function() {                                              
+                        deleteWork(workId);
+                        deleteParentDiv(workId);
+                        });
+                });
+        }
+}
+    
 
 
 /* 

@@ -1,3 +1,5 @@
+
+
 /* Récupération données Backend*/
 export const getWorks = async () => {
   try {
@@ -53,15 +55,26 @@ export const login = async (email, password) => {
   }
 };
 
-export const deleteWork = async (id) => {
+
+
+export const deleteWork = async (workId) => {
+  console.log(workId)
   try {
-  const response = await fetch("http://localhost:5678/api/works/{id}", {
+    const token = localStorage.getItem("token")
+  if(!token) {
+    throw new Error("Token non disponible")
+  }
+  const response = await fetch("http://localhost:5678/api/works/${workId}", {
     method: 'DELETE',
-    body: JSON.stringify({id})
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
   });
-  if(!response.ok) { throw new Error("HTTP error " + response.status); }
+  if(response.status != 200) { throw new Error("HTTP error " + response.status); }  
+  
 } catch (error) {
-  console.error("error suprr: ", error);
+  console.error("erreur lors de la supression: ", error);
 }
 }
 
