@@ -19,8 +19,9 @@ const htmlContentMod1 = {
     btn:'Ajouter une photo',
 }
 
+
 const renderWorksModal = works.map(work => 
-    `<div class="imgBoxMod">
+    `<div id="${work.id}" class="imgBoxMod">
     <img src="${work.imageUrl}" alt='${work.title}'>
     <i class="fa-xs fa-solid fa-trash-can trash"></i>
     </div>`
@@ -56,11 +57,14 @@ export const htmlElementMod2 = `
 <i id="btnArrow" class="fa-lg fa-solid fa-arrow-left navLeftMod"></i>
 <i class="fa-lg fa-solid fa-xmark close-modal modal-trigger"></i>
 <h3>${htmlContentMod2.titre}</h3> 
- <form class="formModal">
+ <form id="addWorkForm" class="formModal">
     <div class="boxUpload">
         <i class="fa-5x fa-regular fa-image imgUpload"></i>
         <label for="imgMod" class="labelUpload">${htmlContentMod2.labelPhoto}</label>
         <input type="file" name="imgMod" id="imgMod" accept="image/png, image/jpg"/>
+        <div id="imgPreviewContainer"> 
+            <img id="imagePreview" src="" alt="Aperçu de l'image"/>
+        </div>
         <p>${htmlContentMod2.infoPhoto}</p>
     </div>        
         <label for="titleMod">${htmlContentMod2.labelT}</label>

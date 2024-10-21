@@ -1,4 +1,4 @@
-import { fetchWorks, fetchCategories, deleteWork } from "./api.js";
+import { fetchWorks, fetchCategories, deleteWork, addWorkData } from "./api.js";
 import { htmlElementMod1, htmlElementMod2 } from "./modalContent.js";
 
 
@@ -24,6 +24,7 @@ function btnToModal2() {
                         let modalTriggers = document.querySelectorAll(".modal-trigger");
                         modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal));
                         btnToModal1();
+                        btnModal2();
                 }) 
         }         
 };
@@ -34,12 +35,22 @@ function btnToModal1() {
         const btnArrow = document.getElementById("btnArrow")                     
         if (btnArrow) {        
                 btnArrow.addEventListener("click", function() {
-                        loadModal1();
+                        loadModal1();                        
                 });
                 
         }
 }
-                
+
+function btnModal2() {
+        const formModal= document.getElementById("addWorkForm")
+        
+        if (formModal){
+                formModal.addEventListener("submit", async function (e) {
+                        e.preventDefault();
+                        addWork();
+                })
+        }
+}
 
 // affichage initial du contenu de la modale 1
  function loadModal1() {       
@@ -55,15 +66,14 @@ loadModal1();
 
 
 // addeventListener sur poubelle pour supprimer image par id
-async function deleteParentDiv(workIndex) {    
+async function deleteParentDiv(workId) {    
         try{  
-                const modal = document.getElementById("modal")
-                console.log(modal)
-                const workDiv = modal.querySelector(`[data-id="${workIndex}"]`)
-                console.log(workDiv)
+                const workDiv = document.getElementById(`${workId}`)
+                                
                 if(workDiv) {
-                        const parentDiv = workDiv.parentElement;
-                        parentDiv.remove();
+                        workDiv.remove();
+                } else {
+                        console.error("element non trouvé.");
                 }
                 
         } catch (error) {
@@ -80,14 +90,42 @@ async function SupprWork() {
                         const workIndex  = works[index];
                         const workId = workIndex.id;                        
                         btnTrash.addEventListener("click", function() {                                              
-                        deleteParentDiv(workIndex);
+                        deleteParentDiv(workId);
                         deleteWork(workId);
                         });
                 });
         }
 }
-    
 
+
+async function addWork() {
+                    
+                // Récupère les éléments du formulaire
+                const fileInput = document.getElementById("imgMod");
+                const image = fileInput.files[0];
+                const title = document.getElementById("titleMod").value;
+                const categoryId = document.getElementById("categorieMod").value;
+                      console.log (image);   
+                      console.log(title); 
+                      console.log(categoryId);  
+            
+                // Vérifie que le fichier est bien sélectionné
+                if (!file) {
+                    console.error('Aucun fichier sélectionné.');
+                    return;
+                }
+            
+                // Créer un objet FormData pour encapsuler les données du formulaire
+                const formData = new FormData();                             
+                formData.append("image", image); 
+                formData.append("title", title);
+                formData.append("category", categoryId);
+
+                //
+                addWorkData(formData);
+        
+       
+}
 
 /* 
 

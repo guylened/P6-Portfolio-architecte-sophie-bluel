@@ -279,6 +279,12 @@ li:hover {
 	align-items: center;
 	gap:10px;
 }
+
+#imagePreview {
+	display: none;
+	max-width: 100%;
+}
+
 #portfolio .boxUpload .imgUpload {
 	margin-top: 20px;
 	color: #CBD6DC;

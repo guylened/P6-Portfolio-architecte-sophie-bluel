@@ -49,6 +49,7 @@ export const login = async (email, password) => {
     }
     const data = await response.json();  
     localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.userId);
     window.location = "/FrontEnd/index.html";
   } catch (error) {
     console.error("error during login: ", error);
@@ -58,8 +59,7 @@ export const login = async (email, password) => {
 
 
 export const deleteWork = async (workId) => {
-  console.log(workId)
-  try {
+    try {
     const token = localStorage.getItem("token")
   if(!token) {
     throw new Error("Token non disponible")
@@ -78,6 +78,30 @@ export const deleteWork = async (workId) => {
 }
 }
 
+export const addWorkData = async () => {
+  try {
+    const token = localStorage.getItem("token")
+    
+  if(!token) {
+    throw new Error("Token non disponible")
+  }
+  const response = await fetch(`http://localhost:5678/api/works/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,    
+    },
+    body: formData,
+  });
+  if(!response.ok) { throw new Error(`HTTP error : ${response.status}`); } 
+  
+  const result = await response.json();
+  console.log('Work ajouté avec succès :', result);
+  
+} catch (error) {
+  console.error("erreur lors de la supression: ", error);
+}
+}
 
 
 
