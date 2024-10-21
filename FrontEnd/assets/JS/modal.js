@@ -55,10 +55,17 @@ loadModal1();
 
 
 // addeventListener sur poubelle pour supprimer image par id
-async function deleteParentDiv(workId) {    
+async function deleteParentDiv(workIndex) {    
         try{  
-                const parentDiv = workId.parentElement;
-                parentDiv.remove();
+                const modal = document.getElementById("modal")
+                console.log(modal)
+                const workDiv = modal.querySelector(`[data-id="${workIndex}"]`)
+                console.log(workDiv)
+                if(workDiv) {
+                        const parentDiv = workDiv.parentElement;
+                        parentDiv.remove();
+                }
+                
         } catch (error) {
                 console.error("erreur lors de la supression: ", error);
               }
@@ -73,8 +80,8 @@ async function SupprWork() {
                         const workIndex  = works[index];
                         const workId = workIndex.id;                        
                         btnTrash.addEventListener("click", function() {                                              
+                        deleteParentDiv(workIndex);
                         deleteWork(workId);
-                        deleteParentDiv(workId);
                         });
                 });
         }

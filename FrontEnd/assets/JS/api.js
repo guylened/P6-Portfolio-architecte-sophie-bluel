@@ -64,14 +64,14 @@ export const deleteWork = async (workId) => {
   if(!token) {
     throw new Error("Token non disponible")
   }
-  const response = await fetch("http://localhost:5678/api/works/${workId}", {
+  const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     }
   });
-  if(response.status != 200) { throw new Error("HTTP error " + response.status); }  
+  if(!response.ok) { throw new Error(`HTTP error : ${response.status}`); }  
   
 } catch (error) {
   console.error("erreur lors de la supression: ", error);
