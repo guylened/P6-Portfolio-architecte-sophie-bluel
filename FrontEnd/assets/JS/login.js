@@ -8,3 +8,7 @@ loginForm.addEventListener("submit", function(event) {
     const password = document.getElementById("password").value;    
     login(email, password); 
 })
+
+
+
+/*const emailValid = /^[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*\.([a-z]{2,4})$/ */

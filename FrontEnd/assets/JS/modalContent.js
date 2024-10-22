@@ -1,18 +1,11 @@
 import { fetchWorks, fetchCategories } from "./api.js";
 
-/*async function initMod() {
-    try {
-              
-    } catch (error) {console.error("Erreur lors de la récupération des données travaux et catégories")}
-};
 
-initMod();*/
 const works = await fetchWorks();
-
 const categories = await fetchCategories(); 
 
 
-//Modal 1 
+// contenue Modale 1 
 
 const htmlContentMod1 = {
     titre:'Galerie photo',
@@ -37,7 +30,7 @@ ${renderWorksModal}
 <button id="btnModal1" class="btnModal">${htmlContentMod1.btn}</button>
 `;
 
-// Modal 2
+// Contenu Modale 2
 
 const htmlContentMod2 = {
     titre:'Ajout photo',

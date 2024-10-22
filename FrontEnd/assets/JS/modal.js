@@ -1,8 +1,8 @@
-import { fetchWorks, fetchCategories, deleteWork, addWorkData } from "./api.js";
+import { fetchWorks, deleteWork, addWorkData } from "./api.js";
 import { htmlElementMod1, htmlElementMod2 } from "./modalContent.js";
 
 
-// ajout/suppression de la class active pour gérer l'affichage de la modale
+// gestion de la classe active pour l'affichage de la modale
 
 const modalContainer = document.querySelector(".modal-container");
 let modalTriggers = document.querySelectorAll(".modal-trigger");
@@ -13,7 +13,7 @@ modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 
 
-// addeventListener sur bouton ajouter pour afficher la modal 2
+// écouteur sur bouton "ajouter" pour afficher la modale 2
 function btnToModal2() {
         const btnAjout = document.getElementById("btnModal1")  
              
@@ -31,7 +31,7 @@ function btnToModal2() {
 };
         
 
-// addeventListener sur bouton flèche gauche pour afficher la modale 1
+// écouteur sur bouton flèche gauche pour afficher la modale 1
 function btnToModal1() {
         const btnArrow = document.getElementById("btnArrow")                     
         if (btnArrow) {        
@@ -42,12 +42,13 @@ function btnToModal1() {
         }
 }
 
+// écouteur sur bouton valider de la modale 2 pour activer fonction addWork
+
 function btnModal2() {
         const formModal = document.getElementById("addWorkForm")
-        const btnValid = document.getElementById("btnModal2")
-        console.log(formModal)
+        const btnValid = document.getElementById("btnModal2")        
         if (formModal){
-                btnValid.addEventListener("click", function () {                        
+                btnValid.addEventListener("click", function () { 
                         addWork();
                 })
         }
@@ -66,7 +67,7 @@ function btnModal2() {
 loadModal1();
 
 
-// addeventListener sur poubelle pour supprimer image par id
+// Modale 1 : supression de la div dans le DOM après la suppresion du projet en lien avec SupprWork
 async function deleteParentDiv(workId) {    
         try{  
                 const workDiv = document.getElementById(`${workId}`)
@@ -81,7 +82,7 @@ async function deleteParentDiv(workId) {
                 console.error("erreur lors de la supression: ", error);
               }
 }
-
+// Modale 1 : écouteur sur logo poubelle pour supprimer les projets par id
 async function SupprWork() {
         const btnsTrashCan = document.querySelectorAll(".trash")                   
         if (btnsTrashCan) {
@@ -98,7 +99,7 @@ async function SupprWork() {
         }
 }
 
-
+// Modale 2 : affichage de l'image en preview après son chargement
 async function imgModalPreview() {
         const fileInputImg = document.getElementById("imgMod");
         const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
@@ -133,7 +134,7 @@ async function imgModalPreview() {
         
         
 }
-
+// Modale 2 : suppression de l'image en preview après son transfert en Backend
 async function resetImgModalPreview() {
         const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
         const imageModalPreview = document.getElementById("imagePreview");
@@ -150,6 +151,7 @@ async function resetImgModalPreview() {
 
 };
 
+// Modale 2 : envoi des données du projet en Backend
 async function addWork() {
                     
                 // Récupère les éléments du formulaire
@@ -157,9 +159,7 @@ async function addWork() {
                 const image = fileInput.files[0];
                 const title = document.getElementById("titleMod").value;
                 const categoryId = document.getElementById("categorieMod").value;
-                      console.log (image);   
-                      console.log(title); 
-                      console.log(categoryId);  
+                      
             
                 if (!image) {
                     console.error('Aucun fichier sélectionné.');
@@ -184,11 +184,14 @@ async function addWork() {
        
 }
 
-
-
-
-/* 
-
-
-
-*/
+/*async function checkFormFields() {
+        const titleInput = document.getElementById("titleMod");
+        const categoryInput = document.getElementById("categorieMod");
+        const fileInput = document.getElementById("imgMod");
+        const submitBtn = document.getElementById("btnModal2");
+    if (titleInput.value.trim() !== "" && categoryInput.value !== "" && fileInput.files.length > 0) {
+        submitBtn.disabled = false;  
+    } else {
+        submitBtn.disabled = true;  
+    }
+}*/
