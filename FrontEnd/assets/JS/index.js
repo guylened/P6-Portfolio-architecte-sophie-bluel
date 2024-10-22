@@ -1,34 +1,34 @@
 import { fetchCategories, fetchWorks } from "./api.js";
+import { Modal, ModalObj } from "./modal.js";
 
 // vérification état connexion et modif page pour User connecté
-const userConnected = localStorage.getItem('token');
-console.log(userConnected)
+const userConnected = localStorage.getItem("token");
+console.log(userConnected);
 
 function PageForUserAuth() {
   const btnLogin = document.getElementById("linkLogin");
   const btnManageWorks = document.getElementById("manageWorks");
-  let divFilter = document.getElementById("filter");  
+  let divFilter = document.getElementById("filter");
   btnLogin.innerHTML = "logout";
-  btnManageWorks.innerHTML = '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
-  divFilter.remove();  
-  document.getElementById("linkLogin").id="linkLogout";  
+  btnManageWorks.innerHTML =
+    '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
+  divFilter.remove();
+  document.getElementById("linkLogin").id = "linkLogout";
 }
 
 // écouteur sur btn logout et rechargement page index
 
-document.addEventListener("DOMContentLoaded", function() {
-  const btnLogout = document.getElementById("linkLogout"); 
-   if (btnLogout !== null) {
-    btnLogout.addEventListener("click" , function() {  
-      localStorage.removeItem('token');     
+document.addEventListener("DOMContentLoaded", function () {
+  const btnLogout = document.getElementById("linkLogout");
+  if (btnLogout !== null) {
+    btnLogout.addEventListener("click", function () {
+      localStorage.removeItem("token");
       window.location = "/FrontEnd/index.html";
-      }) 
+    });
   } else {
-    console.log("l'utilisateur n'est pas connecté")
-  } 
-})
-
-
+    console.log("l'utilisateur n'est pas connecté");
+  }
+});
 
 //modif DOM gallery
 // projets
@@ -36,7 +36,6 @@ function renderWorks(works) {
   const sectionGallery = document.querySelector(".gallery");
 
   works.forEach((work) => {
-    console.log(work)
     const box = document.createElement("figure");
     const image = document.createElement("img");
     image.src = work.imageUrl;
@@ -52,32 +51,48 @@ function renderWorks(works) {
 // categories
 function renderCategories(categories) {
   const sectionFilter = document.querySelector(".filter");
-if(sectionFilter) {
-  categories.forEach((categorie) => {
-    
-    const button = document.createElement("button");
-    button.classList.add("btn-filter");
-    button.innerHTML = categorie.name;    
-    sectionFilter.appendChild(button);    
-  });
-}
+  if (sectionFilter) {
+    categories.forEach((categorie) => {
+      const button = document.createElement("button");
+      button.classList.add("btn-filter");
+      button.innerHTML = categorie.name;
+      sectionFilter.appendChild(button);
+    });
+  }
 }
 
 // fonction initialisation
 
+const handleDeleteWork = (works, workId) => {
+  // Appel API
+
+  // SI c'est OK tu met à jour works en enlevant le work de l'id qui se trouve dans le parameter
+  // const worksFiltered = works.filter(work => work.id === workId);
+
+    // Attention il faudra peut être supprimer le contenu avant de le rendre
+
+  // renderWorks(workFiltered);
+
+}
+
 const init = async () => {
   if (userConnected) {
     PageForUserAuth();
-  };
-
+  }
 
   const works = await fetchWorks();
   const categories = await fetchCategories();
-  
 
   //Afficher les travaux
   renderWorks(works);
-  renderCategories(categories)
+  renderCategories(categories);
+
+  // Initialisation de la Modal
+  /* const modal = new Modal(works);
+  modal.render();*/
+
+  const modal = ModalObj(works, handleDeleteWork);
+  modal.render();
 
   //variables pour filtre
 
@@ -116,7 +131,6 @@ const init = async () => {
     btnFilter[indexCurrent].classList.add("btn-active");
   }
 };
-
 
 // appel initialisation
 init();

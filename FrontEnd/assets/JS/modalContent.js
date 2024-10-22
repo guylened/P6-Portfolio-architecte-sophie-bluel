@@ -1,7 +1,6 @@
 import { fetchWorks, fetchCategories } from "./api.js";
 
 
-const works = await fetchWorks();
 const categories = await fetchCategories(); 
 
 
@@ -13,19 +12,39 @@ const htmlContentMod1 = {
 }
 
 
-const renderWorksModal = works.map(work => 
-    `<div id="${work.id}" class="imgBoxMod">
-    <img src="${work.imageUrl}" alt='${work.title}'>
-    <i class="fa-xs fa-solid fa-trash-can trash"></i>
-    </div>`
-).join('');
+const renderWorksModal = (works, handleDeleteWork) => {
+    const templateString = `${works.map(work => 
+        `<div id="${work.id}" class="imgBoxMod">
+        <img src="${work.imageUrl}" alt='${work.title}'>
+        <i class="fa-xs fa-solid fa-trash-can trash"></i>
+        </div>`
+    ).join('')
+
+}`;
+} 
 
 
-export const htmlElementMod1 = `
+export const renderGalleryModal = (works, handleDeleteWork) => {
+    return works.map(work => {
+        const workElement= document.createElement('div');
+
+        workElement.id = work.id 
+
+        // la trash
+        const trashIcon = document.createElement('i');
+
+        trashIcon.addEventListener('click', () => handleDeleteWork(works, work.id))
+
+    return workElement.outerHTML;
+}).join();
+}
+
+
+export const htmlElementMod1 = (works) => `
 <i class="fa-lg fa-solid fa-xmark close-modal modal-trigger"></i>
 <h3>${htmlContentMod1.titre}</h3> 
 <div class="gridImgModal">
-${renderWorksModal}
+${renderWorksModal(works)}
 </div>
 <button id="btnModal1" class="btnModal">${htmlContentMod1.btn}</button>
 `;
