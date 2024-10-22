@@ -280,10 +280,15 @@ li:hover {
 	gap:10px;
 }
 
-#imagePreview {
-	display: none;
-	max-width: 100%;
+#imgPreviewContainer {
+ display: none;
 }
+
+#imagePreview {
+	width: 129px;
+	height: 193px;
+}
+
 
 #portfolio .boxUpload .imgUpload {
 	margin-top: 20px;

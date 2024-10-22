@@ -1,6 +1,6 @@
 import { fetchCategories, fetchWorks } from "./api.js";
 
-// vérification connexion et modif page pour User connecté
+// vérification état connexion et modif page pour User connecté
 const userConnected = localStorage.getItem('token');
 console.log(userConnected)
 
@@ -14,7 +14,7 @@ function PageForUserAuth() {
   document.getElementById("linkLogin").id="linkLogout";  
 }
 
-// logout et rechargement page index
+// écouteur sur btn logout et rechargement page index
 
 document.addEventListener("DOMContentLoaded", function() {
   const btnLogout = document.getElementById("linkLogout"); 
@@ -28,20 +28,19 @@ document.addEventListener("DOMContentLoaded", function() {
   } 
 })
 
-// appel modal
-/* après le chargement de la page addeventlistener sur btn modifier lance la fonction modale
- import de la fonction modale à faire sur ce fichier
-id="manageWorks" class = open-modal modal-trigger
-*/
+
 
 //modif DOM gallery
+// projets
 function renderWorks(works) {
   const sectionGallery = document.querySelector(".gallery");
 
   works.forEach((work) => {
+    console.log(work)
     const box = document.createElement("figure");
     const image = document.createElement("img");
     image.src = work.imageUrl;
+    image.alt = work.title;
     const legende = document.createElement("figcaption");
     legende.innerHTML = work.title;
 
@@ -50,6 +49,7 @@ function renderWorks(works) {
     box.appendChild(legende);
   });
 }
+// categories
 function renderCategories(categories) {
   const sectionFilter = document.querySelector(".filter");
 if(sectionFilter) {
@@ -62,7 +62,6 @@ if(sectionFilter) {
   });
 }
 }
-
 
 // fonction initialisation
 
@@ -86,7 +85,7 @@ const init = async () => {
   let btnActive = document.querySelector(".btn-active");
   let indexCurrent = 0;
 
-  // addEventListener
+  // écouteur sur btn filtre
 
   btnFilter.forEach((btn, index) => {
     btn.addEventListener("click", function () {

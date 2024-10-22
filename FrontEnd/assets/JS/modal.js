@@ -24,6 +24,7 @@ function btnToModal2() {
                         let modalTriggers = document.querySelectorAll(".modal-trigger");
                         modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal));
                         btnToModal1();
+                        imgModalPreview();
                         btnModal2();
                 }) 
         }         
@@ -42,11 +43,11 @@ function btnToModal1() {
 }
 
 function btnModal2() {
-        const formModal= document.getElementById("addWorkForm")
-        
+        const formModal = document.getElementById("addWorkForm")
+        const btnValid = document.getElementById("btnModal2")
+        console.log(formModal)
         if (formModal){
-                formModal.addEventListener("submit", async function (e) {
-                        e.preventDefault();
+                btnValid.addEventListener("click", function () {                        
                         addWork();
                 })
         }
@@ -98,6 +99,57 @@ async function SupprWork() {
 }
 
 
+async function imgModalPreview() {
+        const fileInputImg = document.getElementById("imgMod");
+        const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
+        const imageModalPreview = document.getElementById("imagePreview");
+        const boxUpload = document.getElementById("boxUpload");
+        const i = boxUpload.querySelector("i");
+        const label = boxUpload.querySelector("label");
+        const p = boxUpload.querySelector("p");
+        
+       try {
+        fileInputImg.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if(file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                                imageModalPreview.src = e.target.result;
+                                imageModalContainerPreview.style.display ="block";
+                                i.style.display ="none";
+                                label.style.display ="none";
+                                p.style.display ="none";
+                        }
+                reader.readAsDataURL(file);
+                } else {
+                        imageModalPreview.style.display ="none";
+                        imageModalContainerPreview.style.display ="none";
+                }
+        })
+
+       } catch (error) {
+        console.error("erreur lors de l'affichage ", error);
+      }
+        
+        
+}
+
+async function resetImgModalPreview() {
+        const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
+        const imageModalPreview = document.getElementById("imagePreview");
+        const boxUpload = document.getElementById("boxUpload");
+        const i = boxUpload.querySelector("i");
+        const label = boxUpload.querySelector("label");
+        const p = boxUpload.querySelector("p");
+
+        imageModalPreview.src = "";
+        imageModalContainerPreview.style.display ="none";
+        i.style.display ="block";
+        label.style.display ="block";
+        p.style.display ="block";
+
+};
+
 async function addWork() {
                     
                 // Récupère les éléments du formulaire
@@ -109,36 +161,34 @@ async function addWork() {
                       console.log(title); 
                       console.log(categoryId);  
             
-                // Vérifie que le fichier est bien sélectionné
-                if (!file) {
+                if (!image) {
                     console.error('Aucun fichier sélectionné.');
                     return;
                 }
             
-                // Créer un objet FormData pour encapsuler les données du formulaire
+                // Créer un objet FormData données formulaire
                 const formData = new FormData();                             
                 formData.append("image", image); 
                 formData.append("title", title);
                 formData.append("category", categoryId);
 
-                //
-                addWorkData(formData);
+                // transmission api
+                await addWorkData(formData);
+
+                // clear formulaire
+                const formReset = document.getElementById("addWorkForm");                
+                formReset.reset();
+                fileInput.value = "";
+                resetImgModalPreview();
         
        
 }
 
+
+
+
 /* 
 
 
-// la fonction est enclenchée par le click sur btn modifier (voir js index)
-        // > affichage modale + page 1 : chagement du fichier 1 en html dans la div + possibilité de supprimer les données
-        // addeventlistener sur le bouton ajouter sur cette page
-        // > affichage de la page 2 avec bouton retour : chagement du fichier 2 en html dans la div 
-                + possibilité de revenir sur l'affichage page1 avec la flèche
-        // addeventlistener sur le bouton valider sur cette page : poste les élément et vide le formulaire      
-
-
-
-        // utilisation de form-data pour send work
 
 */

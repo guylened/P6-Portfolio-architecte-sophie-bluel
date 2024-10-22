@@ -1,6 +1,6 @@
 
 
-/* Récupération données Backend*/
+// Récupération des projets
 export const getWorks = async () => {
   try {
     const data = await fetch("http://localhost:5678/api/works").then(
@@ -37,7 +37,7 @@ export const getCategories = async () => {
     return categories;
   };
   
-
+// Connexion et récupération token
 export const login = async (email, password) => {
   try {
     const response = await fetch("http://localhost:5678/api/users/login", {
@@ -48,8 +48,7 @@ export const login = async (email, password) => {
     if(!response.ok) { throw new Error("HTTP error " + response.status);          
     }
     const data = await response.json();  
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("token", data.token);    
     window.location = "/FrontEnd/index.html";
   } catch (error) {
     console.error("error during login: ", error);
@@ -57,7 +56,7 @@ export const login = async (email, password) => {
 };
 
 
-
+// suppression des données d'un projet
 export const deleteWork = async (workId) => {
     try {
     const token = localStorage.getItem("token")
@@ -78,7 +77,8 @@ export const deleteWork = async (workId) => {
 }
 }
 
-export const addWorkData = async () => {
+// ajout des données d'un projet
+export const addWorkData = async (formData) => {
   try {
     const token = localStorage.getItem("token")
     
@@ -88,7 +88,6 @@ export const addWorkData = async () => {
   const response = await fetch(`http://localhost:5678/api/works/`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,    
     },
     body: formData,
@@ -99,11 +98,6 @@ export const addWorkData = async () => {
   console.log('Work ajouté avec succès :', result);
   
 } catch (error) {
-  console.error("erreur lors de la supression: ", error);
+  console.error("erreur lors de l'ajout: ", error);
 }
 }
-
-
-
-// si problème de port/origin redémarrer backend avec powershell
-
