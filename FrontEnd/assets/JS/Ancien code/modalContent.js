@@ -1,18 +1,13 @@
-import { fetchWorks, fetchCategories } from "./api.js";
+import {} from "../api.js";
 
-
-const categories = await fetchCategories(); 
-
-
-// contenue Modale 1 
+// contenu Modale 1
 
 const htmlContentMod1 = {
-    titre:'Galerie photo',
-    btn:'Ajouter une photo',
-}
+  titre: "Galerie photo",
+  btn: "Ajouter une photo",
+};
 
-
-const renderWorksModal = (works, handleDeleteWork) => {
+/*const renderWorksModal = (works, handleDeleteWork) => {
     const templateString = `${works.map(work => 
         `<div id="${work.id}" class="imgBoxMod">
         <img src="${work.imageUrl}" alt='${work.title}'>
@@ -21,24 +16,26 @@ const renderWorksModal = (works, handleDeleteWork) => {
     ).join('')
 
 }`;
-} 
-
+} */
 
 export const renderGalleryModal = (works, handleDeleteWork) => {
-    return works.map(work => {
-        const workElement= document.createElement('div');
+  return works
+    .map((work) => {
+      const workElement = document.createElement("div");
 
-        workElement.id = work.id 
+      workElement.id = work.id;
 
-        // la trash
-        const trashIcon = document.createElement('i');
+      // la trash
+      const trashIcon = document.createElement("i");
 
-        trashIcon.addEventListener('click', () => handleDeleteWork(works, work.id))
+      trashIcon.addEventListener("click", () =>
+        handleDeleteWork(works, work.id)
+      );
 
-    return workElement.outerHTML;
-}).join();
-}
-
+      return workElement.outerHTML;
+    })
+    .join("");
+};
 
 export const htmlElementMod1 = (works) => `
 <i class="fa-lg fa-solid fa-xmark close-modal modal-trigger"></i>
@@ -52,18 +49,18 @@ ${renderWorksModal(works)}
 // Contenu Modale 2
 
 const htmlContentMod2 = {
-    titre:'Ajout photo',
-    labelPhoto: '+ Ajouter photo',
-    infoPhoto: 'jpg, png : 4Mo max',
-    labelT: 'Titre',
-    labelC: 'Catégorie',
-    option: '--Choisissez dans la liste--',
-    btn:'Valider',
-}
+  titre: "Ajout photo",
+  labelPhoto: "+ Ajouter photo",
+  infoPhoto: "jpg, png : 4Mo max",
+  labelT: "Titre",
+  labelC: "Catégorie",
+  option: "--Choisissez dans la liste--",
+  btn: "Valider",
+};
 
-const renderCategoriesModal = categories.map(category => 
-    `<option value="${category.id}">${category.name}</option>`
-).join('');
+const renderCategoriesModal = categories
+  .map((category) => `<option value="${category.id}">${category.name}</option>`)
+  .join("");
 
 export const htmlElementMod2 = `
 <i id="btnArrow" class="fa-lg fa-solid fa-arrow-left navLeftMod"></i>
@@ -89,4 +86,3 @@ export const htmlElementMod2 = `
 </form>
 <button id="btnModal2" class="btnModal2">${htmlContentMod2.btn}</button>
 `;
-

@@ -13,11 +13,6 @@ export const getWorks = async () => {
   }
 };
 
-export async function fetchWorks(){
-  const works = await getWorks();
-  return works;
-};
-
 // Récupération des catégories
 
 export const getCategories = async () => {
@@ -25,17 +20,14 @@ export const getCategories = async () => {
       const data = await fetch("http://localhost:5678/api/categories").then(
         (response) => response.json()
       );
-  
-      return data;
+      return data;      
+    
     } catch (e) {
       console.log("error:", { e });
     }
   };
-    
-  export async function fetchCategories() {
-    const categories = await getCategories();
-    return categories;
-  };
+ 
+
   
 // Connexion et récupération token
 export const login = async (email, password) => {
@@ -78,7 +70,7 @@ export const deleteWork = async (workId) => {
 }
 
 // ajout des données d'un projet
-export const addWorkData = async (formData) => {
+export const addWork = async (formData) => {
   try {
     const token = localStorage.getItem("token")
     

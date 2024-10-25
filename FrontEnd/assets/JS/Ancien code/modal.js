@@ -1,16 +1,11 @@
-import { fetchWorks, deleteWork, addWorkData } from "./api.js";
+import { addWorkData } from "../api.js";
 import { htmlElementMod1, htmlElementMod2 } from "./modalContent.js";
 
 const modalContainer = document.querySelector(".modal-container");
 let modalTriggers = document.querySelectorAll(".modal-trigger");
 
-export class Modal {
-  works = [];
-
-  constructor(works) {
-    this.works = works;
-  }
-
+/*function  Modal1 { 
+  new ListingWorks(works);
   render() {
         document.getElementById("modal").innerHTML = htmlElementMod1(this.works);
         let modalTriggers = document.querySelectorAll(".modal-trigger");
@@ -23,20 +18,23 @@ export class Modal {
 }
 
 export const ModalObj = (works, handleDeleteWork) => {
-        function render() {
-                document.getElementById("modal").innerHTML = renderGalleryModal(works, handleDeleteWork);
-                let modalTriggers = document.querySelectorAll(".modal-trigger");
-                modalTriggers.forEach((trigger) =>
-                  trigger.addEventListener("click", toggleModal)
-                );
-                btnToModal2();
-                SupprWork();
-              }
+  function render() {
+    document.getElementById("modal").innerHTML = renderGalleryModal(
+      works,
+      handleDeleteWork
+    );
+    let modalTriggers = document.querySelectorAll(".modal-trigger");
+    modalTriggers.forEach((trigger) =>
+      trigger.addEventListener("click", toggleModal)
+    );
+    btnToModal2();
+    SupprWork();
+  }
 
-              return {
-                render
-              }
-}
+  return {
+    render,
+  };
+};*/
 
 // gestion de la classe active pour l'affichage de la modale
 
@@ -120,8 +118,6 @@ async function deleteParentDiv(workId) {
 async function SupprWork(handleDeleteWork) {
   const btnsTrashCan = document.querySelectorAll(".trash");
   if (btnsTrashCan) {
-    const works = await fetchWorks();
-
     btnsTrashCan.forEach((btnTrash, index) => {
       const workIndex = works[index];
       const workId = workIndex.id;
