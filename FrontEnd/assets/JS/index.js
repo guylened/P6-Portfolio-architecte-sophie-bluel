@@ -54,6 +54,7 @@ const htmlElementMod2 = (categories) => `
       ${renderCategoriesModal(categories)}
     </select>
   </form>
+  <p id="msgCheckForm"></p>  
   <button id="btnModal2" class="btnModal2">${htmlContentMod2.btn}</button>
 `;
 
@@ -79,10 +80,11 @@ function displayDeleteWorksModal() {
 }
 
 function displayAddWorkModal() {
-  loadModalContent(htmlElementMod2(categories));
-  console.log (btnModal2)
+  loadModalContent(htmlElementMod2(categories));  
   document.getElementById("btnArrow").addEventListener("click", displayDeleteWorksModal);
+  disabledSubmit();
   imgModalPreview();
+  checkForm();
   initValidAddWork();
 }
 
@@ -100,7 +102,7 @@ async function deleteParentDiv(workId) {
     console.error("erreur lors de la supression: ", error);
   }
 }
-function updateGallery(workId) {
+function updateDelGallery(workId) {
   const galleryItem = document.querySelector(`#work-${workId}`);
   if (galleryItem) {
     galleryItem.remove();
@@ -113,7 +115,7 @@ async function initDeleteWork() {
       const workId = works[index].id;
       await deleteWork(workId);
       deleteParentDiv(workId);
-      updateGallery(workId)
+      updateDelGallery(workId)
     });
   });
 }
@@ -160,18 +162,42 @@ function resetImgModalPreview() {
   label.style.display = "block";
   p.style.display = "block";
 }
+function disabledSubmit() {
+  document.getElementById("btnModal2").disabled = true;
+}
+
+function checkForm() {
+  document.getElementById("addWorkForm").addEventListener("input", () => {
+    const fileInput = document.getElementById("imgMod");
+    const image = fileInput.files[0];
+    const title = document.getElementById("titleMod").value;
+    const categoryId = document.getElementById("categorieMod").value;
+    const submitButton = document.getElementById("btnModal2")    
+  if(image !== '' && title !== '' && categoryId !== '')
+  {
+      submitButton.disabled = false;
+      submitButton.classList.add("active");
+      document.getElementById("msgCheckForm").innerText = "";
+
+  } else {
+      submitButton.disabled = true;
+      submitButton.classList.remove("active");
+  }
+  })
+}
 
 async function validAddWork() {
  // Récupère les éléments du formulaire
  const fileInput = document.getElementById("imgMod");
- const image = fileInput.files[0];
+ const image = fileInput.files[0]; 
  const title = document.getElementById("titleMod").value;
- const categoryId = document.getElementById("categorieMod").value;
+ const categoryId = document.getElementById("categorieMod").value; 
 
- if (!image) {
-   console.error("Aucun fichier sélectionné.");
+ if (image !== '' && title !== '' && categoryId !== '') {
+   console.error("Champs à compléter");   
    return;
  }
+
 
  // Créer un objet FormData données formulaire
  const formData = new FormData();
@@ -180,12 +206,20 @@ async function validAddWork() {
  formData.append("category", categoryId);
 
  // transmission api
- await addWorkData(formData);
+ try {
+
+ 
+ await addWork(formData);
+ console.log("transmission api ok");
 
  // clear formulaire
  document.getElementById("addWorkForm").reset();
  fileInput.value = "";
  resetImgModalPreview();
+ renderWorks(works);
+ renderCategories(categories);
+
+} catch (error) {console.error("Erreur lors de l'ajout du projet :", error);}
 }
 
 function initValidAddWork() {

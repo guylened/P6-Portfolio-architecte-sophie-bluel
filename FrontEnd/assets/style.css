@@ -363,6 +363,12 @@ li:hover {
 
 }
 
+#portfolio .btnModal2.active {
+	background-color: #1D6154;		
+	border: solid 1px #1D6154;	
+	cursor: pointer;
+}
+
 #portfolio .filter {
 display: flex;
 flex-direction: row;
@@ -372,7 +378,7 @@ margin-bottom: 50px;
 gap:10px;
 }
 
-#portfolio button {	
+#portfolio .btn-filter {	
 	font-family: 'Syne';
 	font-weight: 700;
 	color: #1D6154;
@@ -383,7 +389,12 @@ gap:10px;
 	text-align: center;	
 }
 
-#portfolio button:hover, button:active {
+#portfolio .btn-filter:hover {
+	color: white;
+	background-color: #1D6154;	
+}
+
+#portfolio .btn-filter.btn-active {
 	color: white;
 	background-color: #1D6154;	
 }
@@ -442,6 +453,19 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+#login input[type="submit"] {
+	background-color: #A7A7A7;
+	
+}
+#login input[type="submit"].active {
+	background-color: #1D6154;
+	cursor: pointer;
+	
+}
+:is(#spanEmail, #pValid) {
+	color: #B1663C;
 }
 
 footer nav ul {

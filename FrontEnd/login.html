@@ -25,11 +25,12 @@
 <main>
 	<section id="login">		
 		<h2>Log In</h2>
-			<form id="loginForm">				
-				<label for="email">Email</label>
-				<input type="email" name="email" id="email" required>
+			<form id="loginForm">							
+				<label for="email">Email<span id="spanEmail"></span></label>
+				<input type="email" name="email" id="email" autocomplete="email">
 				<label for="password">Mot de passe</label>
-				<input type="password" name="password" id="password" required>
+				<input type="password" name="password" id="password" autocomplete="current-password">
+				<p id="pValid"></p>
 				<input id="submit" type="submit" value="Envoyer">
 			</form>		
 	</section>	

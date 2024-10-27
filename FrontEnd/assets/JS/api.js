@@ -72,7 +72,7 @@ export const deleteWork = async (workId) => {
 // ajout des données d'un projet
 export const addWork = async (formData) => {
   try {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");    
     
   if(!token) {
     throw new Error("Token non disponible")
