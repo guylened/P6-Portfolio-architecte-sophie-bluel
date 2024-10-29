@@ -29,23 +29,6 @@ export const getCategories = async () => {
  
 
   
-// Connexion et récupération token
-export const login = async (email, password) => {
-  try {
-    const response = await fetch("http://localhost:5678/api/users/login", {
-      method: 'POST', 
-      headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify({email, password})
-    });
-    if(!response.ok) { throw new Error("HTTP error " + response.status);          
-    }
-    const data = await response.json();  
-    localStorage.setItem("token", data.token);    
-    window.location = "/FrontEnd/index.html";
-  } catch (error) {
-    console.error("error during login: ", error);
-  }
-};
 
 
 // suppression des données d'un projet

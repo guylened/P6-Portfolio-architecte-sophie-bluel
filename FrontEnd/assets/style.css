@@ -60,9 +60,12 @@ body {
 	font-size: 14px;
 }
 header {
-	display: flex;
+	display: flex;	
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;	
+}
+main {
+	margin : auto 95px;
 }
 section {
 	margin: 50px 0
@@ -96,6 +99,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+	gap:40px;
 
 }
 nav li {
@@ -103,6 +107,7 @@ nav li {
 	font-size: 1.2em;
 	cursor: pointer;
 }
+
 
 nav img {
 	height: 22px;
@@ -114,20 +119,22 @@ li:hover {
 }
 
 #introduction {
+	margin: 139px auto;
 	display: flex;
 	align-items: center;
+	gap: 70px;
 }
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%;
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -186,8 +193,9 @@ li:hover {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	gap:40px;
-	padding: 5% 0%;	
+	gap:20px;
+	padding-top: 60px;	
+	padding-bottom: 45px;	
 	
 }
 
@@ -213,6 +221,7 @@ li:hover {
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+	margin-bottom: 20px;
 }
 
 #portfolio .gridImgModal {
@@ -222,7 +231,7 @@ li:hover {
 	row-gap: 20px;
 	column-gap: 6px;	
 	border-bottom: 1px solid #B3B3B3;
-	padding-bottom: 5%;
+	padding-bottom: 65px;
 }
 #portfolio .imgBoxMod {
 	position: relative;
@@ -240,7 +249,7 @@ li:hover {
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	padding: 10px 5px 10px 4px;
+	padding: 9px 5px 10px 4px;
 	color:white;
 	background: #000;
 	cursor: pointer;
@@ -257,6 +266,7 @@ li:hover {
 	border-radius: 60px;
 	text-align: center;	
 	cursor: pointer;
+	margin-top: 20px;
 }
 
 #portfolio .formModal {
@@ -348,8 +358,6 @@ li:hover {
 	line-height: normal;
 }
 
-
-
 #portfolio .btnModal2 {
 	width: 40%;
 	font-family: 'Syne';
@@ -374,7 +382,7 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-margin-bottom: 50px;
+margin-bottom: 30px;
 gap:10px;
 }
 
@@ -401,6 +409,7 @@ gap:10px;
 
 .gallery {
 	width: 100%;
+	padding-top: 20px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -410,6 +419,11 @@ gap:10px;
 .gallery img {
 	width: 100%;
 
+}
+
+.gallery figcaption {
+	font-size: 13px;
+	color: #3D3D3D;
 }
 
 :is(#contact, #login) {
@@ -438,26 +452,36 @@ gap:10px;
 }
 :is(#contact, #login) label {
 	margin: 2em 0 1em 0;
+	color:#3D3D3D;
 }
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+:is(#contact, #login) input[type="submit"]{
+	height: 36px;
+	width: 179px;
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
+	margin : 1.8em auto ;	
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
+}
+
+#login {
+	display: flex;
+	flex-direction: column;
+	margin-top: 12%;
+	margin-bottom: 22%;
 }
 
 #login input[type="submit"] {
 	background-color: #A7A7A7;
-	
+	cursor: default;
 }
 #login input[type="submit"].active {
 	background-color: #1D6154;
@@ -468,8 +492,22 @@ input[type="submit"]{
 	color: #B1663C;
 }
 
+#pValid {
+	text-align: center;
+	margin-top: 20px;
+}
+#login a{
+	color: #3D3D3D;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	text-decoration: underline;
+	
+}
+
 footer nav ul {
-	display: flex;
+	display: flex;	
 	justify-content: flex-end;
 	margin: 2em
 }

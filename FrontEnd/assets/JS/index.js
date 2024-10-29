@@ -199,7 +199,7 @@ async function validAddWork() {
  }
 
 
- // Créer un objet FormData données formulaire
+ // Créer un objet FormData avec données formulaire
  const formData = new FormData();
  formData.append("image", image);
  formData.append("title", title);

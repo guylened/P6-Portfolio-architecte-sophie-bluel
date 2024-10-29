@@ -1,4 +1,24 @@
-import { login } from "./api.js";
+
+// Connexion et récupération token
+const login = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:5678/api/users/login", {
+        method: 'POST', 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({email, password})
+      });
+      if(!response.ok) { 
+        console.error("HTTP error " + response.status); 
+        document.getElementById("pValid").innerText="Erreur dans l’identifiant ou le mot de passe";                 
+      }
+      const data = await response.json();  
+      localStorage.setItem("token", data.token);    
+      window.location = "/FrontEnd/index.html";
+    } catch (error) {
+      console.error("error during login: ", error);
+    }
+  };
+  
 
 function disabledSubmit() {
     document.getElementById("submit").disabled = true;
@@ -9,7 +29,7 @@ function verifForm() {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         const submitButton = document.getElementById("submit");
-    if(email !== '' && password != '')
+    if( document.getElementById("spanEmail").innerText == "" && email !== '' && password != '')
     {
         submitButton.disabled = false;
         submitButton.classList.add("active");
@@ -52,8 +72,8 @@ function validateEmail() {
         document.getElementById("spanEmail").innerText = " Le format est invalide";
         return; 
      } 
-    login(email, password); 
-})
+    login(email, password);
+});
 
 // Initialisation des fonctions 
 disabledSubmit();
