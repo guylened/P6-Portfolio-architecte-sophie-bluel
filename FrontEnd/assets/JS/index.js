@@ -31,6 +31,7 @@ const htmlElementMod1 = (works) => `
   <i class="fa-lg fa-solid fa-xmark close-modal modal-trigger"></i>
   <h3>${htmlContentMod1.titre}</h3>
   <div class="gridImgModal">${renderWorksModal(works)}</div>
+  <p id="msgDel"></p> 
   <button id="btnModal1" class="btnModal">${htmlContentMod1.btn}</button>
 `;
 
@@ -54,7 +55,7 @@ const htmlElementMod2 = (categories) => `
       ${renderCategoriesModal(categories)}
     </select>
   </form>
-  <p id="msgCheckForm"></p>  
+  <p id="msgAddForm"></p>  
   <button id="btnModal2" class="btnModal2">${htmlContentMod2.btn}</button>
 `;
 
@@ -142,8 +143,7 @@ async function imgModalPreview() {
       };
       reader.readAsDataURL(file);
     } else {
-      previewContainer.style.display = "none";
-      // vérifier si pas d'erreur alt sinon ajouter image preview none
+      previewContainer.style.display = "none";      
     }
   });
 }
@@ -177,7 +177,7 @@ function checkForm() {
   {
       submitButton.disabled = false;
       submitButton.classList.add("active");
-      document.getElementById("msgCheckForm").innerText = "";
+      document.getElementById("msgAddForm").innerText = "";
 
   } else {
       submitButton.disabled = true;
@@ -193,8 +193,8 @@ async function validAddWork() {
  const title = document.getElementById("titleMod").value;
  const categoryId = document.getElementById("categorieMod").value; 
 
- if (image !== '' && title !== '' && categoryId !== '') {
-   console.error("Champs à compléter");   
+ if (image == '' && title == '' && categoryId == '') {
+  document.getElementById("msgAddForm").innerText = "Veuillez compléter les champs"; 
    return;
  }
 
@@ -211,6 +211,8 @@ async function validAddWork() {
  
  await addWork(formData);
  console.log("transmission api ok");
+ document.getElementById("msgAddForm").classList.add("valid")
+ document.getElementById("msgAddForm").innerText = "Le projet a été ajouté avec succès";
 
  // clear formulaire
  document.getElementById("addWorkForm").reset();

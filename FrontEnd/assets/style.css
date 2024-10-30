@@ -254,6 +254,16 @@ li:hover {
 	background: #000;
 	cursor: pointer;
 }
+#msgDel {
+	color: #B1663C;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+}
+#msgDel.valid {
+	color: #1D6154;
+}
 
 #portfolio .btnModal {
 	width: 40%;
@@ -277,7 +287,7 @@ li:hover {
 	align-items: left;
 	gap: 10px;
 	border-bottom: 1px solid #B3B3B3;
-	padding-bottom: 5%;
+	padding-bottom: 45px;
 }
 
 #portfolio .boxUpload {
@@ -342,7 +352,8 @@ li:hover {
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 500;
-	line-height: normal;			
+	line-height: normal;
+	margin-top: 10px;			
 }
 
 #portfolio .formModal input, select {
@@ -350,12 +361,23 @@ li:hover {
 	height: 50px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	color: #444;
+	color: #444444;
 	font-family: "Work Sans";
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+}
+
+#msgAddForm {
+	color: #B1663C;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+}
+#portfolio .valid {
+	color: #1D6154;
 }
 
 #portfolio .btnModal2 {
@@ -452,7 +474,12 @@ gap:10px;
 }
 :is(#contact, #login) label {
 	margin: 2em 0 1em 0;
-	color:#3D3D3D;
+	color: #3D3D3D;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
 #contact textarea {
 	border: none;

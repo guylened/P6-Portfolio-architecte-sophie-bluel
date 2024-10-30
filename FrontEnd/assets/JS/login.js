@@ -9,7 +9,7 @@ const login = async (email, password) => {
       });
       if(!response.ok) { 
         console.error("HTTP error " + response.status); 
-        document.getElementById("pValid").innerText="Erreur dans l’identifiant ou le mot de passe";                 
+        document.getElementById("msgLogin").innerText="Erreur dans l’identifiant ou le mot de passe";                 
       }
       const data = await response.json();  
       localStorage.setItem("token", data.token);    
@@ -33,12 +33,12 @@ function verifForm() {
     {
         submitButton.disabled = false;
         submitButton.classList.add("active");
-        document.getElementById("pValid").innerText = "";
+        document.getElementById("msgLogin").innerText = "";
  
     } else {
         submitButton.disabled = true;
         submitButton.classList.remove("active");
-        document.getElementById("pValid").innerText="Veuillez compléter tous les champs"        
+        document.getElementById("msgLogin").innerText="Veuillez compléter tous les champs"        
 
     }
     })
