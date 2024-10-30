@@ -75,6 +75,7 @@ export const addWork = async (formData) => {
 
     const result = await response.json();
     console.log("Work ajouté avec succès :", result);
+    return result;
   } catch (error) {
     console.error("erreur lors de l'ajout: ", error);
   }

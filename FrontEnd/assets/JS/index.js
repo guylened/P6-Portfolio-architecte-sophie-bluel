@@ -1,31 +1,49 @@
 import { getCategories, getWorks, addWork, deleteWork } from "./api.js";
 
-let works = []
-let categories  = []
+let works = [];
+let categories = [];
+
+// TODO:
+// - Créer un fichier form.js avec son affichage / sa gestion des erreurs
+// - Créer un fichier modal.js avec ses différents rendu / et ses eventListener
+
+export const updateWorksWhenAdd = (work) => {
+  works = [...works, work];
+};
+
+export const updateWorksWhenDelete = (workId) => {
+  works = works.filter((work) => work.id !== workId);
+};
 
 // CONTENU FIXE DES MODALES
-const htmlContentMod1 = { titre: 'Galerie photo', btn: 'Ajouter une photo' };
+const htmlContentMod1 = { titre: "Galerie photo", btn: "Ajouter une photo" };
 const htmlContentMod2 = {
-  titre: 'Ajout photo',
-  labelPhoto: '+ Ajouter photo',
-  infoPhoto: 'jpg, png : 4Mo max',
-  labelT: 'Titre',
-  labelC: 'Catégorie',
-  option: '--Choisissez dans la liste--',
-  btn: 'Valider',
+  titre: "Ajout photo",
+  labelPhoto: "+ Ajouter photo",
+  infoPhoto: "jpg, png : 4Mo max",
+  labelT: "Titre",
+  labelC: "Catégorie",
+  option: "--Choisissez dans la liste--",
+  btn: "Valider",
 };
 
 // MODALES ET AFFICHAGE DES DONNÉES
-const renderWorksModal = (works) => works
-  .map((work) => `<div id="${work.id}" class="imgBoxMod">
+const renderWorksModal = (works) =>
+  works
+    .map(
+      (work) => `<div id="${work.id}" class="imgBoxMod">
       <img src="${work.imageUrl}" alt='${work.title}'>
       <i class="fa-xs fa-solid fa-trash-can trash"></i>
-      </div>`)
-  .join('');
+      </div>`
+    )
+    .join("");
 
-const renderCategoriesModal = (categories) => categories
-  .map((category) => `<option value="${category.id}">${category.name}</option>`)
-  .join('');
+const renderCategoriesModal = (categories) =>
+  categories
+    .map(
+      (category) => `<option value="${category.id}">${category.name}</option>`
+    )
+    .join("");
 
 const htmlElementMod1 = (works) => `
   <i class="fa-lg fa-solid fa-xmark close-modal modal-trigger"></i>
@@ -42,7 +60,9 @@ const htmlElementMod2 = (categories) => `
   <form id="addWorkForm" class="formModal">
     <div id="boxUpload" class="boxUpload">
       <i class="fa-5x fa-regular fa-image imgUpload"></i>
-      <label for="imgMod" class="labelUpload">${htmlContentMod2.labelPhoto}</label>
+      <label for="imgMod" class="labelUpload">${
+        htmlContentMod2.labelPhoto
+      }</label>
       <input type="file" name="imgMod" id="imgMod" accept="image/png, image/jpg"/>
       <p>${htmlContentMod2.infoPhoto}</p>
       <div id="imgPreviewContainer"><img id="imagePreview" src="" alt="Aperçu de l'image"/></div>
@@ -65,7 +85,9 @@ function toggleModal() {
 }
 
 function initModalTriggers() {
-  document.querySelectorAll(".modal-trigger").forEach(trigger => trigger.addEventListener("click", toggleModal));
+  document
+    .querySelectorAll(".modal-trigger")
+    .forEach((trigger) => trigger.addEventListener("click", toggleModal));
 }
 
 function loadModalContent(contentHTML) {
@@ -74,15 +96,20 @@ function loadModalContent(contentHTML) {
   initModalTriggers();
 }
 
+// displayGalleryModal
 function displayDeleteWorksModal() {
   loadModalContent(htmlElementMod1(works));
-  document.getElementById("btnModal1").addEventListener("click", displayAddWorkModal);
-  initDeleteWork();  
+  document
+    .getElementById("btnModal1")
+    .addEventListener("click", displayAddWorkModal);
+  initDeleteWork();
 }
 
 function displayAddWorkModal() {
-  loadModalContent(htmlElementMod2(categories));  
-  document.getElementById("btnArrow").addEventListener("click", displayDeleteWorksModal);
+  loadModalContent(htmlElementMod2(categories));
+  document
+    .getElementById("btnArrow")
+    .addEventListener("click", displayDeleteWorksModal);
   disabledSubmit();
   imgModalPreview();
   checkForm();
@@ -103,6 +130,8 @@ async function deleteParentDiv(workId) {
     console.error("erreur lors de la supression: ", error);
   }
 }
+
+// removeWorkInGallery
 function updateDelGallery(workId) {
   const galleryItem = document.querySelector(`#work-${workId}`);
   if (galleryItem) {
@@ -110,13 +139,17 @@ function updateDelGallery(workId) {
   }
 }
 
+// handleDeleteWork
 async function initDeleteWork() {
   document.querySelectorAll(".trash").forEach((btnTrash, index) => {
     btnTrash.addEventListener("click", async () => {
       const workId = works[index].id;
       await deleteWork(workId);
+
+      updateWorksWhenDelete(workId);
+
       deleteParentDiv(workId);
-      updateDelGallery(workId)
+      updateDelGallery(workId);
     });
   });
 }
@@ -143,13 +176,15 @@ async function imgModalPreview() {
       };
       reader.readAsDataURL(file);
     } else {
-      previewContainer.style.display = "none";      
+      previewContainer.style.display = "none";
     }
   });
 }
 
 function resetImgModalPreview() {
-  const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
+  const imageModalContainerPreview = document.getElementById(
+    "imgPreviewContainer"
+  );
   const imageModalPreview = document.getElementById("imagePreview");
   const boxUpload = document.getElementById("boxUpload");
   const i = boxUpload.querySelector("i");
@@ -172,56 +207,59 @@ function checkForm() {
     const image = fileInput.files[0];
     const title = document.getElementById("titleMod").value;
     const categoryId = document.getElementById("categorieMod").value;
-    const submitButton = document.getElementById("btnModal2")    
-  if(image !== '' && title !== '' && categoryId !== '')
-  {
+    const submitButton = document.getElementById("btnModal2");
+    if (image !== "" && title !== "" && categoryId !== "") {
       submitButton.disabled = false;
       submitButton.classList.add("active");
       document.getElementById("msgAddForm").innerText = "";
-
-  } else {
+    } else {
       submitButton.disabled = true;
       submitButton.classList.remove("active");
-  }
-  })
+    }
+  });
 }
 
 async function validAddWork() {
- // Récupère les éléments du formulaire
- const fileInput = document.getElementById("imgMod");
- const image = fileInput.files[0]; 
- const title = document.getElementById("titleMod").value;
- const categoryId = document.getElementById("categorieMod").value; 
+  // Récupère les éléments du formulaire
+  const fileInput = document.getElementById("imgMod");
+  const image = fileInput.files[0];
+  const title = document.getElementById("titleMod").value;
+  const categoryId = document.getElementById("categorieMod").value;
 
- if (image == '' && title == '' && categoryId == '') {
-  document.getElementById("msgAddForm").innerText = "Veuillez compléter les champs"; 
-   return;
- }
+  if (image == "" && title == "" && categoryId == "") {
+    document.getElementById("msgAddForm").innerText =
+      "Veuillez compléter les champs";
+    return;
+  }
 
+  // Créer un objet FormData avec données formulaire
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("title", title);
+  formData.append("category", categoryId);
 
- // Créer un objet FormData avec données formulaire
- const formData = new FormData();
- formData.append("image", image);
- formData.append("title", title);
- formData.append("category", categoryId);
+  // transmission api
+  try {
+    const result = await addWork(formData);
+    console.log("transmission api ok");
+    document.getElementById("msgAddForm").classList.add("valid");
+    document.getElementById("msgAddForm").innerText =
+      "Le projet a été ajouté avec succès";
 
- // transmission api
- try {
+    // clear formulaire
+    document.getElementById("addWorkForm").reset();
+    fileInput.value = "";
+    resetImgModalPreview();
 
- 
- await addWork(formData);
- console.log("transmission api ok");
- document.getElementById("msgAddForm").classList.add("valid")
- document.getElementById("msgAddForm").innerText = "Le projet a été ajouté avec succès";
+    // TODO: mettre à jour works pour avoir celui qui vient d'être ajouté
 
- // clear formulaire
- document.getElementById("addWorkForm").reset();
- fileInput.value = "";
- resetImgModalPreview();
- renderWorks(works);
- renderCategories(categories);
+    updateWorksWhenAdd(result);
 
-} catch (error) {console.error("Erreur lors de l'ajout du projet :", error);}
+    renderWorks(works);
+    renderCategories(categories); // TODO a verifier mais peut être pas utile
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du projet :", error);
+  }
 }
 
 function initValidAddWork() {
@@ -231,8 +269,8 @@ function initValidAddWork() {
 // RENDU DES TRAVAUX ET FILTRES
 function renderWorks(works) {
   const gallerySection = document.querySelector(".gallery");
-  gallerySection.innerHTML = '';
-  works.forEach(work => {
+  gallerySection.innerHTML = "";
+  works.forEach((work) => {
     const box = document.createElement("figure");
     box.id = `work-${work.id}`;
     box.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}"><figcaption>${work.title}</figcaption>`;
@@ -243,7 +281,7 @@ function renderWorks(works) {
 function renderCategories(categories) {
   const filterSection = document.querySelector(".filter");
   if (filterSection) {
-    categories.forEach(categorie => {
+    categories.forEach((categorie) => {
       const button = document.createElement("button");
       button.classList.add("btn-filter");
       button.innerHTML = categorie.name;
@@ -253,10 +291,9 @@ function renderCategories(categories) {
   }
 }
 
-
 let indexCurrent = 0;
 
-function initFilterButtons() {  
+function initFilterButtons() {
   document.querySelectorAll(".btn-filter").forEach((btn, index) => {
     btn.addEventListener("click", () => {
       indexCurrent = [index];
@@ -265,8 +302,8 @@ function initFilterButtons() {
     });
   });
 }
- // Filtres et update classe
- function filterWorks() {
+// Filtres et update classe
+function filterWorks() {
   if (indexCurrent == 0) {
     document.querySelector(".gallery").innerHTML = " ";
     renderWorks(works);
@@ -281,12 +318,15 @@ function initFilterButtons() {
 
 function updateBtn() {
   document.querySelector(".btn-active").classList.remove("btn-active");
-  document.querySelectorAll(".btn-filter")[indexCurrent].classList.add("btn-active");
+  document
+    .querySelectorAll(".btn-filter")
+    [indexCurrent].classList.add("btn-active");
 }
 
 function updateUserInterfaceForAuth() {
   document.getElementById("linkLogin").textContent = "logout";
-  document.getElementById("manageWorks").innerHTML = '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
+  document.getElementById("manageWorks").innerHTML =
+    '<i class="fa-xs fa-regular fa-pen-to-square fa-style" aria-hidden="true"></i>modifier';
   document.getElementById("filter")?.remove();
   document.getElementById("linkLogin").id = "linkLogout";
   document.getElementById("linkLogout").addEventListener("click", () => {
@@ -295,28 +335,20 @@ function updateUserInterfaceForAuth() {
   });
 }
 
-
 // INITIALISATION
 async function init() {
-  if (localStorage.getItem("token")) {updateUserInterfaceForAuth();} 
+  if (localStorage.getItem("token")) {
+    updateUserInterfaceForAuth();
+  }
 
   works = await getWorks();
   categories = await getCategories();
   renderWorks(works);
   renderCategories(categories);
+
+  // displayGalleryModal
   displayDeleteWorksModal();
-
 }
-
-
-
-  
 
 // APPEL DE L'INITIALISATION
 document.addEventListener("DOMContentLoaded", init);
-
-
-
-
-
-

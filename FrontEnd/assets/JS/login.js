@@ -9,7 +9,8 @@ const login = async (email, password) => {
       });
       if(!response.ok) { 
         console.error("HTTP error " + response.status); 
-        document.getElementById("msgLogin").innerText="Erreur dans l’identifiant ou le mot de passe";                 
+        document.getElementById("msgLogin").innerText="Erreur dans l’identifiant ou le mot de passe";    
+        return;             
       }
       const data = await response.json();  
       localStorage.setItem("token", data.token);    
@@ -79,3 +80,5 @@ function validateEmail() {
 disabledSubmit();
 verifForm();
 validateEmail();
+
+// set timeout pour message
