@@ -254,15 +254,12 @@ li:hover {
 	background: #000;
 	cursor: pointer;
 }
-#msgDel {
+:is(#msgDel, #msgAddForm) {
 	color: #B1663C;
 	font-family: "Work Sans";
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 500;
-}
-#msgDel.valid {
-	color: #1D6154;
 }
 
 #portfolio .btnModal {
@@ -369,16 +366,6 @@ li:hover {
 	line-height: normal;
 }
 
-#msgAddForm {
-	color: #B1663C;
-	font-family: "Work Sans";
-	font-size: 14px;
-	font-style: normal;
-	font-weight: 500;
-}
-#portfolio .valid {
-	color: #1D6154;
-}
 
 #portfolio .btnModal2 {
 	width: 40%;
@@ -515,11 +502,11 @@ gap:10px;
 	cursor: pointer;
 	
 }
-:is(#spanEmail, #pValid) {
+:is(#spanEmail, #msgLogin) {
 	color: #B1663C;
 }
 
-#pValid {
+#msgLogin {
 	text-align: center;
 	margin-top: 20px;
 }

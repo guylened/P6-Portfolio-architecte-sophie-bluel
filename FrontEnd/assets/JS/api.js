@@ -29,6 +29,7 @@ export const deleteWork = async (workId) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
+      document.getElementById("msgAddForm").innerText = "Erreur : Token non disponible";
       throw new Error("Token non disponible");
     }
     const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -41,9 +42,9 @@ export const deleteWork = async (workId) => {
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
       document.getElementById("msgDel").innerText =
-        "Erreur: le projet n'a pas été supprimé";
+        `Erreur: le projet n'a pas été supprimé : ${response.status}`;
     } else {
-      document.getElementById("msgDel").classList.add("valid");
+      document.getElementById("msgDel").style.color = "#1D6154"
       document.getElementById("msgDel").innerText =
         "Le projet a été supprimé avec succès";
     }
@@ -58,7 +59,8 @@ export const addWork = async (formData) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      throw new Error("Token non disponible");
+      document.getElementById("msgAddForm").innerText = "Erreur : Token non disponible";
+      throw new Error("Token non disponible");      
     }
     const response = await fetch(`http://localhost:5678/api/works/`, {
       method: "POST",
@@ -70,13 +72,24 @@ export const addWork = async (formData) => {
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
       document.getElementById("msgAddForm").innerText =
-        "Erreur : le projet n'a été ajouté à la base de données";
+        `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`;      
     }
 
     const result = await response.json();
     console.log("Work ajouté avec succès :", result);
+    document.getElementById("msgAddForm").style.color = "#1D6154";
+    document.getElementById("msgAddForm").innerText = "Le projet a été ajouté avec succès";
     return result;
   } catch (error) {
     console.error("erreur lors de l'ajout: ", error);
+    
   }
 };
+
+export function deleteMsgModal() {
+  document.getElementById("msgAddForm").innerText = "";
+   document.getElementById("msgDel").innerText = "";
+   document.getElementById("msgAddForm").style.color = "#B1663C";
+   document.getElementById("msgDel").style.color = "#B1663C";
+
+}
