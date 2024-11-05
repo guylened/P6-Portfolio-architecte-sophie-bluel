@@ -494,14 +494,10 @@ gap:10px;
 }
 
 #login input[type="submit"] {
-	background-color: #A7A7A7;
-	cursor: default;
-}
-#login input[type="submit"].active {
 	background-color: #1D6154;
 	cursor: pointer;
-	
 }
+
 :is(#spanEmail, #msgLogin) {
 	color: #B1663C;
 }

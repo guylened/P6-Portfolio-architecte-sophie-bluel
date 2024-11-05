@@ -1,9 +1,13 @@
-import { addWork, deleteMsgModal } from "./api.js";
+import { addWork } from "./api.js";
 import { works, renderWorks } from "./index.js";
 
-const updateWorksWhenAdd = (work) => {
-    works = [...works, work];
+let updateWorksWhenAdd = (work) => {
+  const updateAdddWorks = [...works, work];
+    works.length = 0;
+    works.push(...updateAdddWorks);  
   };
+
+
 
 // Gestion affichage preview modale vue 2
 export async function imgModalPreview() {
@@ -100,8 +104,7 @@ function clearForm () {
     try {
       const result = await addWork(formData);      
         
-      // clear formulaire
-      setTimeout(deleteMsgModal, 2000 );
+      // clear formulaire      
       clearForm ();
   
       // Mise à jour du tableau de works

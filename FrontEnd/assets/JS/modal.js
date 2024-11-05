@@ -1,10 +1,13 @@
-import { deleteWork, deleteMsgModal } from "./api.js";
+import { deleteWork } from "./api.js";
 import { works, categories } from "./index.js";
 import { disabledSubmit, imgModalPreview, checkForm, initValidAddWork } from "./form.js"
 
-  
-const updateWorksWhenDelete = (workId) => {
-    works = works.filter((work) => work.id !== workId);
+
+ 
+let updateWorksWhenDelete = (workId) => {
+  const updatedDelWorks = works.filter((work) => work.id !== workId);
+    works.length = 0;
+    works.push(...updatedDelWorks);     
   };
 
 // Contenu fixe des modales
@@ -142,7 +145,7 @@ async function handleDeleteWork() {
 
       deleteParentDiv(workId);
       removeWorkInGallery(workId);
-      setTimeout(deleteMsgModal, 2000);      
+           
     });
   });
 }
