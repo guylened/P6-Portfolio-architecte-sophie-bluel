@@ -8,17 +8,7 @@ export let works = [];
 export let categories = [];
 
 
-// Fonctions de mise à jour des tableaux
-/*export function setWorks(data) {
-  works.length = 0; 
-  works.push(...data);
-}
 
-export function setCategories(data) {
-  categories.length = 0;
-  categories.push(...data);
-}
-*/
 // RENDU DES TRAVAUX ET FILTRES Portfolio
 export function renderWorks(works) {
   const gallerySection = document.querySelector(".gallery");
@@ -97,9 +87,7 @@ async function init() {
   works = await getWorks();
   categories = await getCategories();
 
-  //setWorks(fetchedWorks);
- // setCategories(fetchedCategories);
-  
+ 
   renderWorks(works);
   renderCategories(categories);
 
