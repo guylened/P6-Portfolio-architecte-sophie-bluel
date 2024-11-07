@@ -176,7 +176,7 @@ li:hover {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 #portfolio .modal {
@@ -281,7 +281,6 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;	
-	align-items: left;
 	gap: 10px;
 	border-bottom: 1px solid #B3B3B3;
 	padding-bottom: 45px;
@@ -289,7 +288,7 @@ li:hover {
 
 #portfolio .boxUpload {
 	width: 100%;
-	height: 193px;
+	height: 169px;
 	background: #E8F1F6;
 	display: flex;
 	flex-direction: column;
@@ -303,13 +302,13 @@ li:hover {
 }
 
 #imagePreview {
-	width: 129px;
-	height: 193px;
+	height: 169px;
+	vertical-align: middle;
 }
 
 
 #portfolio .boxUpload .imgUpload {
-	margin-top: 20px;
+	margin-top: 18px;
 	color: #CBD6DC;
 	background: #E8F1F6;
 
@@ -324,6 +323,7 @@ li:hover {
 	font-weight: 500;
 	line-height: normal;
 	padding: 0.5em 2em;
+	margin-top: 0;
 	border: solid 1px #CBD6DC;	
 	border-radius: 60px;
 	text-align: center;	
@@ -338,7 +338,7 @@ li:hover {
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
-	margin-bottom: 20px;
+	margin-bottom: 17px;
 }
 #portfolio .boxUpload input[type=file] {
  	display: none;
