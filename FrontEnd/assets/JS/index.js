@@ -1,15 +1,12 @@
 import { getCategories, getWorks } from "./api.js";
 import { displayDeleteWorkModal } from "./modal.js";
 
-
-// Initialisation Tableaux WORKS et CATEGORIES 
+// Initialisation Tableaux WORKS et CATEGORIES
 
 export let works = [];
 export let categories = [];
 
-
-
-// RENDU DES TRAVAUX ET FILTRES Portfolio
+// rendu des projets portfolio
 export function renderWorks(works) {
   const gallerySection = document.querySelector(".gallery");
   gallerySection.innerHTML = "";
@@ -34,6 +31,7 @@ function renderCategories(categories) {
   }
 }
 
+// Filtres et update btn
 let indexCurrent = 0;
 
 function initFilterButtons() {
@@ -45,7 +43,7 @@ function initFilterButtons() {
     });
   });
 }
-// Filtres et update btn 
+
 function filterWorks() {
   if (indexCurrent == 0) {
     document.querySelector(".gallery").innerHTML = " ";
@@ -65,7 +63,8 @@ function updateBtn() {
     .querySelectorAll(".btn-filter")
     [indexCurrent].classList.add("btn-active");
 }
-// mise à jour page après pour user authentifié
+
+// mise à jour page après authentification
 function updateUserInterfaceForAuth() {
   document.getElementById("linkLogin").textContent = "logout";
   document.getElementById("manageWorks").innerHTML =
@@ -87,7 +86,6 @@ async function init() {
   works = await getWorks();
   categories = await getCategories();
 
- 
   renderWorks(works);
   renderCategories(categories);
 

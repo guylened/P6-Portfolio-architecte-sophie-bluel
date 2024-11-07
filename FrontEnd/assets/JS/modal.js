@@ -1,14 +1,17 @@
 import { deleteWork } from "./api.js";
 import { works, categories } from "./index.js";
-import { disabledSubmit, imgModalPreview, checkForm, initValidAddWork } from "./form.js"
+import {
+  disabledSubmit,
+  imgModalPreview,
+  checkForm,
+  initValidAddWork,
+} from "./form.js";
 
-
- 
 let updateWorksWhenDelete = (workId) => {
   const updatedDelWorks = works.filter((work) => work.id !== workId);
-    works.length = 0;
-    works.push(...updatedDelWorks);     
-  };
+  works.length = 0;
+  works.push(...updatedDelWorks);
+};
 
 // Contenu fixe des modales
 const htmlContentMod1 = { titre: "Galerie photo", btn: "Ajouter une photo" };
@@ -74,7 +77,7 @@ const htmlElementMod2 = (categories) => `
   <button id="btnModal2" class="btnModal2">${htmlContentMod2.btn}</button>
 `;
 
-// gestion affichage modales  
+// gestion affichage modales
 function toggleModal() {
   document.querySelector(".modal-container").classList.toggle("active");
   displayDeleteWorkModal();
@@ -89,7 +92,7 @@ function initModalTriggers() {
 function loadModalContent(contentHTML) {
   const modal = document.getElementById("modal");
   modal.innerHTML = contentHTML;
-  initModalTriggers();  
+  initModalTriggers();
 }
 
 // affichage modale vue 1
@@ -98,7 +101,7 @@ export function displayDeleteWorkModal() {
   document
     .getElementById("btnModal1")
     .addEventListener("click", displayAddWorkModal);
-    handleDeleteWork();
+  handleDeleteWork();
 }
 // affichage modale vue 2
 function displayAddWorkModal() {
@@ -112,19 +115,12 @@ function displayAddWorkModal() {
   initValidAddWork();
 }
 
-// Gestion suppression projet modale vue 1 
+// Gestion suppression projet modale vue 1
 async function deleteParentDiv(workId) {
-  try {
-    const workDiv = document.getElementById(`${workId}`);
-
+      const workDiv = document.getElementById(`${workId}`);
     if (workDiv) {
       workDiv.remove();
-    } else {
-      console.error("element non trouvé.");
-    }
-  } catch (error) {
-    console.error("erreur lors de la supression: ", error);
-  }
+    } 
 }
 // mise à jour galerie
 function removeWorkInGallery(workId) {
@@ -134,7 +130,7 @@ function removeWorkInGallery(workId) {
   }
 }
 
-// Gestion supression Work
+// Gestion suppression projet
 async function handleDeleteWork() {
   document.querySelectorAll(".trash").forEach((btnTrash, index) => {
     btnTrash.addEventListener("click", async () => {
@@ -145,7 +141,6 @@ async function handleDeleteWork() {
 
       deleteParentDiv(workId);
       removeWorkInGallery(workId);
-           
     });
   });
 }

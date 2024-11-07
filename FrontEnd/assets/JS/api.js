@@ -14,7 +14,6 @@ export const getWorks = async () => {
 };
 
 // Récupération des catégories
-
 export const getCategories = async () => {
   try {
     const data = await fetch("http://localhost:5678/api/categories").then(
@@ -26,12 +25,11 @@ export const getCategories = async () => {
   }
 };
 
-
 // suppression des données d'un projet
 export const deleteWork = async (workId) => {
   try {
     const token = localStorage.getItem("token");
-    if (!token) {      
+    if (!token) {
       throw new Error("Token non disponible");
     }
     const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -43,16 +41,23 @@ export const deleteWork = async (workId) => {
     });
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
-      displayMessage("msgDel", `Erreur serveur: le projet n'a pas été supprimé : ${response.status}`);      
-        setTimeout(deleteMsgModal, 4000); 
+      displayMessage(
+        "msgDel",
+        `Erreur serveur: le projet n'a pas été supprimé : ${response.status}`
+      );
+      setTimeout(deleteMsgModal, 4000);
     } else {
-      displayMessage("msgDel", "Le projet a été supprimé avec succès", "#1D6154"); 
-      setTimeout(deleteMsgModal, 2000); 
+      displayMessage(
+        "msgDel",
+        "Le projet a été supprimé avec succès",
+        "#1D6154"
+      );
+      setTimeout(deleteMsgModal, 2000);
     }
   } catch (error) {
-    console.error("erreur lors de la supression: ", error);    
+    console.error("erreur lors de la supression: ", error);
     displayMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");
-    setTimeout(deleteMsgModal, 4000); 
+    setTimeout(deleteMsgModal, 4000);
   }
 };
 
@@ -61,8 +66,8 @@ export const addWork = async (formData) => {
   try {
     const token = localStorage.getItem("token");
 
-    if (!token) {      
-      throw new Error("Token non disponible");      
+    if (!token) {
+      throw new Error("Token non disponible");
     }
     const response = await fetch(`http://localhost:5678/api/works/`, {
       method: "POST",
@@ -73,19 +78,27 @@ export const addWork = async (formData) => {
     });
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
-      displayMessage("msgAddForm", `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`);   
-        setTimeout(deleteMsgModal, 4000); 
+      displayMessage(
+        "msgAddForm",
+        `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`
+      );
+      setTimeout(deleteMsgModal, 4000);
     }
 
     const result = await response.json();
-    displayMessage("msgAddForm", "Le projet a été ajouté avec succès", "#1D6154");    
+    displayMessage(
+      "msgAddForm",
+      "Le projet a été ajouté avec succès",
+      "#1D6154"
+    );
     setTimeout(deleteMsgModal, 2000);
     return result;
   } catch (error) {
     console.error("erreur lors de l'ajout: ", error);
-    displayMessage("msgAddForm", "Erreur : Token non disponible ou erreur serveur");
+    displayMessage(
+      "msgAddForm",
+      "Erreur : Token non disponible ou erreur serveur"
+    );
     setTimeout(deleteMsgModal, 4000);
-    
   }
 };
-
