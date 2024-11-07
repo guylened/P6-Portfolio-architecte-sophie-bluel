@@ -107,13 +107,11 @@ async function validAddWork() {
 
   // transmission api
   try {
-    const result = await addWork(formData);
-
+    const result = await addWork(formData);    
     clearForm();
-
     updateWorksWhenAdd(result);
-
     renderWorks(works);
+        
   } catch (error) {
     console.error("Erreur lors de l'ajout du projet :", error);
   }

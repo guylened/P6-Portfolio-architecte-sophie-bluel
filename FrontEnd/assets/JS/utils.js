@@ -26,3 +26,16 @@ export function deleteMsgModal() {
 export function deleteMsgLogin() {
   document.getElementById("msgLogin").innerText = "";
 }
+
+
+export function errorLogout() {
+  const linkLogout = document.getElementById("linkLogout")
+  const linkLogin = document.getElementById("linkLogin")
+  if (linkLogout) {
+  localStorage.removeItem("token");
+  window.location = "/FrontEnd/index.html";  
+  }
+  if (linkLogin) {
+    document.getElementById("linkLogin").remove()
+  }
+};

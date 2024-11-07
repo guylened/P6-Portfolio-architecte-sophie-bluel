@@ -1,4 +1,4 @@
-import { deleteMsgModal, displayMessage } from "./utils.js";
+import { deleteMsgModal, displayMessage, errorLogout } from "./utils.js";
 
 // Récupération des projets
 export const getWorks = async () => {
@@ -10,6 +10,12 @@ export const getWorks = async () => {
     return data;
   } catch (e) {
     console.log("error:", { e });
+    displayMessage(
+      "manageWorks",
+      "Erreur connexion serveur, veuillez contacter l'administrateur",
+      "#b1663c"
+    );
+    setTimeout(errorLogout,1000);
   }
 };
 
@@ -22,6 +28,12 @@ export const getCategories = async () => {
     return data;
   } catch (e) {
     console.log("error:", { e });
+    displayMessage(
+      "manageWorks",
+      "Erreur connexion serveur, veuillez contacter l'administrateur",
+      "#b1663c"
+    );
+    setTimeout(errorLogout,1000);
   }
 };
 
@@ -43,9 +55,9 @@ export const deleteWork = async (workId) => {
       console.error(`HTTP error : ${response.status}`);
       displayMessage(
         "msgDel",
-        `Erreur serveur: le projet n'a pas été supprimé : ${response.status}`
+        "Erreur serveur: le projet n'a pas été supprimé"
       );
-      setTimeout(deleteMsgModal, 4000);
+      setTimeout(errorLogout,2000);
     } else {
       displayMessage(
         "msgDel",
@@ -56,8 +68,8 @@ export const deleteWork = async (workId) => {
     }
   } catch (error) {
     console.error("erreur lors de la supression: ", error);
-    displayMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");
-    setTimeout(deleteMsgModal, 4000);
+    displayMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");    
+    setTimeout(errorLogout,2000);
   }
 };
 
@@ -80,9 +92,9 @@ export const addWork = async (formData) => {
       console.error(`HTTP error : ${response.status}`);
       displayMessage(
         "msgAddForm",
-        `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`
-      );
-      setTimeout(deleteMsgModal, 4000);
+        "Erreur serveur : le projet n'a été ajouté à la base de données"
+      );      
+      setTimeout(errorLogout,2000);
     }
 
     const result = await response.json();
@@ -98,7 +110,7 @@ export const addWork = async (formData) => {
     displayMessage(
       "msgAddForm",
       "Erreur : Token non disponible ou erreur serveur"
-    );
-    setTimeout(deleteMsgModal, 4000);
+    );    
+    setTimeout(errorLogout,2000);
   }
 };
