@@ -135,11 +135,13 @@ async function handleDeleteWork() {
   document.querySelectorAll(".trash").forEach((btnTrash, index) => {
     btnTrash.addEventListener("click", async () => {
       const workId = works[index].id;
-     await deleteWork(workId);
-      updateWorksWhenDelete(workId);
-      deleteParentDiv(workId);
-      removeWorkInGallery(workId);
-          
+      const response = await deleteWork(workId);
+
+      if (response.ok) {
+        updateWorksWhenDelete(workId);
+        deleteParentDiv(workId);
+        removeWorkInGallery(workId);
+      }      
     });
   });
 }

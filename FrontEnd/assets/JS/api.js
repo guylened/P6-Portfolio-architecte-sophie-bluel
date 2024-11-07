@@ -33,7 +33,7 @@ export const getCategories = async () => {
       "Erreur connexion serveur, veuillez contacter l'administrateur",
       "#b1663c"
     );
-    setTimeout(errorLogout,1000);
+    setTimeout(errorLogout,500);
   }
 };
 
@@ -52,12 +52,8 @@ export const deleteWork = async (workId) => {
       },
     });
     if (!response.ok) {
-      console.error(`HTTP error : ${response.status}`);
-      displayMessage(
-        "msgDel",
-        "Erreur serveur: le projet n'a pas été supprimé"
-      );
-      setTimeout(errorLogout,2000);
+      throw new Error(`HTTP error : ${response.status}`);
+      
     } else {
       displayMessage(
         "msgDel",
@@ -66,10 +62,11 @@ export const deleteWork = async (workId) => {
       );
       setTimeout(deleteMsgModal, 2000);
     }
+    return response;
   } catch (error) {
-    console.error("erreur lors de la supression: ", error);
-    displayMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");    
-    setTimeout(errorLogout,2000);
+    console.error("erreur lors de la suppression: ", error);
+    displayMessage("msgDel", "Erreur suppression : Token non disponible ou erreur serveur");    
+    setTimeout(errorLogout,3000);
   }
 };
 
@@ -89,12 +86,7 @@ export const addWork = async (formData) => {
       body: formData,
     });
     if (!response.ok) {
-      console.error(`HTTP error : ${response.status}`);
-      displayMessage(
-        "msgAddForm",
-        "Erreur serveur : le projet n'a été ajouté à la base de données"
-      );      
-      setTimeout(errorLogout,2000);
+      throw new Error(`HTTP error : ${response.status}`);      
     }
 
     const result = await response.json();
@@ -109,8 +101,8 @@ export const addWork = async (formData) => {
     console.error("erreur lors de l'ajout: ", error);
     displayMessage(
       "msgAddForm",
-      "Erreur : Token non disponible ou erreur serveur"
+      "Erreur ajout : Token non disponible ou erreur serveur"
     );    
-    setTimeout(errorLogout,2000);
+    setTimeout(errorLogout,3000);
   }
 };
