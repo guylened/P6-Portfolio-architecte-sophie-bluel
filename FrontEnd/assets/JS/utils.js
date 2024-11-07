@@ -1,15 +1,13 @@
-// message alertes erreur
-export function displayErrorMessage(elementId, message) {
-  document.getElementById(elementId).innerText = message
-}
 
 
-// message alertes succès
-export function displaySucessMessage(elementId, message, color = "") {
-    if (color) {
-      document.getElementById(elementId).style = color
-    }
+
+// message alertes succès ou erreur
+export function displayMessage(elementId, message, color) {
+  if (color) {
+    document.getElementById(elementId).style.color = color    
     document.getElementById(elementId).innerText = message
+  }
+  document.getElementById(elementId).innerText = message
   }
   
   
@@ -35,3 +33,5 @@ export function deleteMsgModal() {
 export function deleteMsgLogin() {
     document.getElementById("msgLogin").innerText = "";
   }
+
+  

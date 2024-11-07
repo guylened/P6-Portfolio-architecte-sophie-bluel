@@ -1,24 +1,29 @@
 import { addWork } from "./api.js";
 import { works, renderWorks } from "./index.js";
 
+
 let updateWorksWhenAdd = (work) => {
   const updateAdddWorks = [...works, work];
     works.length = 0;
     works.push(...updateAdddWorks);  
   };
 
-
+const getFormElements = () => ({
+  fileInputImg: document.getElementById("imgMod"),
+  previewContainer: document.getElementById("imgPreviewContainer"),
+  imagePreview: document.getElementById("imagePreview"),
+  boxUpload: document.getElementById("boxUpload"),
+  btnSubmit: document.getElementById("btnModal2"),
+  workTitle: document.getElementById("titleMod"),
+  workCategory: document.getElementById("categorieMod"),
+  msgAddForm: document.getElementById("msgAddForm"),
+  });
 
 // Gestion affichage preview modale vue 2
 export async function imgModalPreview() {
-    const fileInputImg = document.getElementById("imgMod");
-    const previewContainer = document.getElementById("imgPreviewContainer");
-    const imagePreview = document.getElementById("imagePreview");
-    const boxUpload = document.getElementById("boxUpload");
-    const i = boxUpload.querySelector("i");
-    const label = boxUpload.querySelector("label");
-    const p = boxUpload.querySelector("p");
-  
+  const { fileInputImg, imagePreview, previewContainer, boxUpload } = getFormElements();
+  const [icon, label, text] = boxUpload.querySelectorAll("i, label, p");
+   
     fileInputImg.addEventListener("change", (event) => {
       const file = event.target.files[0];
       if (file) {
@@ -26,9 +31,9 @@ export async function imgModalPreview() {
         reader.onload = (e) => {
           imagePreview.src = e.target.result;
           previewContainer.style.display = "block";
-          i.style.display = "none";
+          icon.style.display = "none";
           label.style.display = "none";
-          p.style.display = "none";
+          text.style.display = "none";
         };
         reader.readAsDataURL(file);
       } else {
@@ -38,18 +43,13 @@ export async function imgModalPreview() {
   }
   
   function resetImgModalPreview() {
-    const imageModalContainerPreview = document.getElementById("imgPreviewContainer");
-    const imageModalPreview = document.getElementById("imagePreview");
-    const boxUpload = document.getElementById("boxUpload");
-    const i = boxUpload.querySelector("i");
-    const label = boxUpload.querySelector("label");
-    const p = boxUpload.querySelector("p");
-  
-    imageModalPreview.src = "";
-    imageModalContainerPreview.style.display = "none";
-    i.style.display = "block";
+  const { imagePreview, previewContainer, boxUpload } = getFormElements();
+  const [icon, label, text] = boxUpload.querySelectorAll("i, label, p");  
+    imagePreview.src = "";
+    previewContainer.style.display = "none";
+    icon.style.display = "block";
     label.style.display = "block";
-    p.style.display = "block";
+    text.style.display = "block";
   }
   // Gestion vérification et validation formulaire modale vue 2
   export function disabledSubmit() {
@@ -57,40 +57,41 @@ export async function imgModalPreview() {
   }
 
 function clearForm () {
+  const { fileInputImg, btnSubmit } = getFormElements();
     document.getElementById("addWorkForm").reset();
-    document.getElementById("imgMod").value = "";
+    fileInputImg.value = "";
       resetImgModalPreview();
       disabledSubmit();      
-      document.getElementById("btnModal2").classList.remove("active");
+      btnSubmit.classList.remove("active");
 
 }  
   export function checkForm() {
     document.getElementById("addWorkForm").addEventListener("input", () => {
-      const fileInput = document.getElementById("imgMod");
-      const image = fileInput.files[0];
-      const title = document.getElementById("titleMod").value;
-      const categoryId = document.getElementById("categorieMod").value;
-      const submitButton = document.getElementById("btnModal2");
-      if (image !== "" && title !== "" && categoryId !== "") {
-        submitButton.disabled = false;
-        submitButton.classList.add("active");        
+      const { fileInputImg, btnSubmit, workTitle, workCategory } = getFormElements();
+      const image = fileInputImg.files[0];
+      const title = workTitle.value;
+      const category = workCategory.value;
+      
+      if (image !== "" && title !== "" && category !== "") {
+        btnSubmit.disabled = false;
+        btnSubmit.classList.add("active");        
       } else {
-        submitButton.disabled = true;
-        submitButton.classList.remove("active");
+        btnSubmit.disabled = true;
+        btnSubmit.classList.remove("active");
       }
     });
   }
    // gestion ajout d'un projet
   async function validAddWork() {  
-    const fileInput = document.getElementById("imgMod");
-    const image = fileInput.files[0];
-    const title = document.getElementById("titleMod").value;
-    const categoryId = document.getElementById("categorieMod").value;
+    const { fileInputImg, btnSubmit, workTitle, workCategory, msgAddForm } = getFormElements();
+    const image = fileInputImg.files[0];
+    const title = workTitle.value;
+    const category = workCategory.value;
   
-    if (image === "" && title === "" && categoryId === "") {
-      document.getElementById("msgAddForm").innerText = "Veuillez compléter les champs";
+    if (image === "" && title === "" && category === "") {
+      msgAddForm.innerText = "Veuillez compléter les champs";
       disabledSubmit();
-      document.getElementById("btnModal2").classList.remove("active");
+      btnSubmit.classList.remove("active");
       return;
     }
   
@@ -98,7 +99,7 @@ function clearForm () {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
-    formData.append("category", categoryId);
+    formData.append("category", category);
   
     // transmission api
     try {

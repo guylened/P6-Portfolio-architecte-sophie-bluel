@@ -1,4 +1,4 @@
-import {deleteMsgLogin, displayErrorMessage, displaySucessMessage} from "./utils.js";
+import {deleteMsgLogin, displayMessage} from "./utils.js";
 
 
 const emailPattern = /^[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*\.[a-z]{2,4}$/;
@@ -17,19 +17,19 @@ const login = async (email, password) => {
       });
       if(!response.ok) { 
         console.error("HTTP error " + response.status); 
-        displayErrorMessage("msgLogin", "Erreur dans l’identifiant ou le mot de passe");        
+        displayMessage("msgLogin", "Erreur dans l’identifiant ou le mot de passe");        
         document.getElementById("loginForm").addEventListener("input", () => {
           deleteMsgLogin(); });
         return;             
       }
       const data = await response.json();  
       localStorage.setItem("token", data.token);
-      displaySucessMessage("msgLogin", "Authentification réussie",  color = "#1D6154")     
+      displayMessage("msgLogin", "Authentification réussie", "#1D6154")     
       setTimeout(redirectUser, 1000); 
       
     } catch (error) {
       console.error("error during login: ", error);
-      displayErrorMessage("msgLogin", "Erreur serveur");      
+      displayMessage("msgLogin", "Erreur serveur");      
       setTimeout(deleteMsgLogin, 4000);
     }
   };
@@ -45,21 +45,21 @@ function submitForm() {
        
         if (!emailPattern.test(email)) {
             isError = true;
-            displayErrorMessage("spanEmail", "Le format est invalide");
+            displayMessage("spanEmail", " Le format est invalide");
             document.getElementById("email").addEventListener("input", () => {
             document.getElementById("spanEmail").innerText = ""; });
              
          } 
         if (email==="") {
           isError = true;
-          displayErrorMessage("msgLogin", "Veuillez compléter tous les champs");         
+          displayMessage("msgLogin", "Veuillez compléter tous les champs");         
           document.getElementById("email").addEventListener("input", () => {
             deleteMsgLogin(); });
 
         }
         if (password==="") {
           isError = true;
-          displayErrorMessage("msgLogin", "Veuillez compléter tous les champs");
+          displayMessage("msgLogin", "Veuillez compléter tous les champs");
           document.getElementById("password").addEventListener("input", () => {
             deleteMsgLogin(); });
 

@@ -288,7 +288,8 @@ li:hover {
 }
 
 #portfolio .boxUpload {
-	width: 100%;	
+	width: 100%;
+	height: 193px;
 	background: #E8F1F6;
 	display: flex;
 	flex-direction: column;

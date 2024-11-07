@@ -1,4 +1,4 @@
-import { deleteMsgModal, displaySucessMessage, displayErrorMessage} from "./utils.js";
+import { deleteMsgModal, displayMessage } from "./utils.js";
 
 // Récupération des projets
 export const getWorks = async () => {
@@ -43,15 +43,15 @@ export const deleteWork = async (workId) => {
     });
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
-      displayErrorMessage("msgDel", `Erreur serveur: le projet n'a pas été supprimé : ${response.status}`);      
+      displayMessage("msgDel", `Erreur serveur: le projet n'a pas été supprimé : ${response.status}`);      
         setTimeout(deleteMsgModal, 4000); 
     } else {
-      displaySucessMessage("msgDel", "Le projet a été supprimé avec succès",  color = "#1D6154"); 
+      displayMessage("msgDel", "Le projet a été supprimé avec succès", "#1D6154"); 
       setTimeout(deleteMsgModal, 2000); 
     }
   } catch (error) {
     console.error("erreur lors de la supression: ", error);    
-    displayErrorMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");
+    displayMessage("msgDel", "Erreur : Token non disponible ou erreur serveur");
     setTimeout(deleteMsgModal, 4000); 
   }
 };
@@ -73,17 +73,17 @@ export const addWork = async (formData) => {
     });
     if (!response.ok) {
       console.error(`HTTP error : ${response.status}`);
-      displayErrorMessage("msgAddForm", `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`);   
+      displayMessage("msgAddForm", `Erreur serveur : le projet n'a été ajouté à la base de données : ${response.status}`);   
         setTimeout(deleteMsgModal, 4000); 
     }
 
     const result = await response.json();
-    displaySucessMessage("msgAddForm", "Le projet a été ajouté avec succès",  color = "#1D6154");    
+    displayMessage("msgAddForm", "Le projet a été ajouté avec succès", "#1D6154");    
     setTimeout(deleteMsgModal, 2000);
     return result;
   } catch (error) {
     console.error("erreur lors de l'ajout: ", error);
-    displayErrorMessage("msgAddForm", "Erreur : Token non disponible ou erreur serveur");
+    displayMessage("msgAddForm", "Erreur : Token non disponible ou erreur serveur");
     setTimeout(deleteMsgModal, 4000);
     
   }
