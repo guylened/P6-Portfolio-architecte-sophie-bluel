@@ -27,15 +27,33 @@ export function deleteMsgLogin() {
   document.getElementById("msgLogin").innerText = "";
 }
 
-
 export function errorLogout() {
-  const linkLogout = document.getElementById("linkLogout")
-  const linkLogin = document.getElementById("linkLogin")
+  const linkLogout = document.getElementById("linkLogout");
+  const linkLogin = document.getElementById("linkLogin");
   if (linkLogout) {
-  localStorage.removeItem("token");
-  window.location = "/FrontEnd/index.html";  
+    localStorage.removeItem("token");
+    window.location = "/FrontEnd/index.html";
   }
   if (linkLogin) {
-    document.getElementById("linkLogin").remove()
+    document.getElementById("linkLogin").remove();
   }
-};
+}
+
+export function checkContactForm() {
+  const contactForm = document.getElementById("contact");
+  contactForm
+    .querySelector('input[type="submit"]')
+    .addEventListener("click", function () {
+      let valid = true;
+
+      for (let input of contactForm.querySelectorAll("input textarea")) {
+        valid &= input.reportValidity();
+        if (!valid) {
+          break;
+        }
+        if (valid) {
+          alert("Votre message a bien été envoyé");
+        }
+      }
+    });
+}

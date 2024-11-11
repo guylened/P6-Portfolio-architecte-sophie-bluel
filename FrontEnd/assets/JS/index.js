@@ -1,5 +1,6 @@
 import { getCategories, getWorks } from "./api.js";
 import { displayDeleteWorkModal } from "./modal.js";
+import {checkContactForm } from "./utils.js";
 
 // Initialisation Tableaux WORKS et CATEGORIES
 
@@ -91,6 +92,8 @@ async function init() {
 
   // initialisation 1ere vue modale
   displayDeleteWorkModal();
+  
+  checkContactForm ();
 }
 
 // APPEL DE L'INITIALISATION
