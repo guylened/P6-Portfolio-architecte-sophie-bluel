@@ -20,7 +20,7 @@ const getFormElements = () => ({
 });
 
 // Gestion affichage preview modale vue 2
-export async function imgModalPreview() {
+export function imgModalPreview() {
   const { fileInputImg, imagePreview, previewContainer, boxUpload } =
     getFormElements();
   const [icon, label, text] = boxUpload.querySelectorAll("i, label, p");

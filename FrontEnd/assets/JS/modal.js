@@ -116,7 +116,7 @@ function displayAddWorkModal() {
 }
 
 // Gestion suppression projet modale vue 1
-async function deleteParentDiv(workId) {
+function deleteParentDiv(workId) {
       const workDiv = document.getElementById(`${workId}`);
     if (workDiv) {
       workDiv.remove();
@@ -131,7 +131,7 @@ function removeWorkInGallery(workId) {
 }
 
 // Gestion suppression projet
-async function handleDeleteWork() {
+function handleDeleteWork() {
   document.querySelectorAll(".trash").forEach((btnTrash, index) => {
     btnTrash.addEventListener("click", async () => {
       const workId = works[index].id;
