@@ -4,7 +4,7 @@ const emailPattern =
   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function redirectUser() {
-  window.location = "/FrontEnd/index.html";
+  window.location = "index.html";
 }
 
 // Connexion et récupération token
